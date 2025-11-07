@@ -41,7 +41,8 @@ export default function Home() {
   }
 
   const primaryDeity = DEITIES.find(d => d.id === preferences?.primary_deity);
-  const deityImage = DEITY_IMAGES[preferences?.primary_deity || 'ganesha'];
+  const deityImages = DEITY_IMAGES[preferences?.primary_deity || 'ganesha'];
+  const deityImage = deityImages ? deityImages[0] : '';
 
   return (
     <SafeAreaView style={styles.container}>
