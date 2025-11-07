@@ -33,9 +33,11 @@ export default function RootLayout() {
         <Stack.Screen name="home" />
         <Stack.Screen name="ritual/prepare" />
         <Stack.Screen name="ritual/breathing" />
+        <Stack.Screen name="ritual/puja" />
         <Stack.Screen name="ritual/darshan" />
-        <Stack.Screen name="ritual/blessing" />
+        <Stack.Screen name="ritual/wisdom" />
         <Stack.Screen name="ritual/closure" />
+        <Stack.Screen name="ritual/seva" />
         <Stack.Screen name="streaks" />
         <Stack.Screen name="settings/index" />
         <Stack.Screen name="settings/reminder" />
