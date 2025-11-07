@@ -96,7 +96,7 @@ export default function Breathing() {
     };
 
     breathingCycle();
-    breathingInterval = setInterval(breathingCycle, 4000);
+    breathingInterval = setInterval(breathingCycle, 6000); // Increased delay between chants
 
     return () => clearInterval(breathingInterval);
   }, []);
