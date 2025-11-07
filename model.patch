@@ -1,0 +1,13 @@
+diff --git a/frontend/app/home.tsx b/frontend/app/home.tsx
+index b1fdc7c..1c07bea 100644
+--- a/frontend/app/home.tsx
++++ b/frontend/app/home.tsx
+@@ -89,7 +89,7 @@ export default function Home() {
+           {/* Begin Darshan Button */}
+           <TouchableOpacity 
+             style={styles.primaryButton}
+-            onPress={() => router.push('/ritual/prepare')}
++            onPress={() => router.push('/ritual/breathing')}
+           >
+             <Ionicons name="flower" size={24} color="#FFFFFF" style={styles.buttonIcon} />
+             <Text style={styles.primaryButtonText}>Begin Morning Darshan</Text>
