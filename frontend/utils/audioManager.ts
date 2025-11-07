@@ -43,26 +43,16 @@ export const playOmChant = async () => {
 };
 
 export const stopOmChant = () => {
+  if (fadeInterval) {
+    clearInterval(fadeInterval);
+    fadeInterval = null;
+  }
+  
   if (omChantAudio) {
-    // Fade out
-    let vol = omChantAudio.volume;
-    if (fadeInterval) clearInterval(fadeInterval);
-    
-    fadeInterval = setInterval(() => {
-      if (vol > 0.05) {
-        vol -= 0.1;
-        if (omChantAudio) omChantAudio.volume = Math.max(vol, 0);
-      } else {
-        if (omChantAudio) {
-          omChantAudio.pause();
-          omChantAudio.currentTime = 0;
-        }
-        omChantAudio = null;
-        if (fadeInterval) clearInterval(fadeInterval);
-      }
-    }, 50);
-    
-    console.log('Stopping Om chant audio with fade');
+    omChantAudio.pause();
+    omChantAudio.currentTime = 0;
+    omChantAudio = null;
+    console.log('Stopped Om chant audio immediately');
   }
 };
 
