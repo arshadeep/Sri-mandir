@@ -77,7 +77,10 @@ export default function Darshan() {
   }, [preferences]);
 
   const offerFlower = () => {
-    setFlowerOffered(true);
+    // Allow repeated offerings - don't disable button
+    if (!flowerOffered) {
+      setFlowerOffered(true);
+    }
     
     // Create multiple flowers falling
     for (let i = 0; i < 5; i++) {
