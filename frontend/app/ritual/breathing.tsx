@@ -96,11 +96,11 @@ export default function Breathing() {
     };
 
     breathingCycle();
-    breathingInterval = setInterval(breathingCycle, 6500);
+    breathingInterval = setInterval(breathingCycle, 8000);
 
     return () => {
       clearInterval(breathingInterval);
-      stopOmChant(); // Stop audio when component unmounts
+      stopOmChant();
     };
   }, []);
 
