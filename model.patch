@@ -1,13 +1,31 @@
-diff --git a/frontend/app/home.tsx b/frontend/app/home.tsx
-index b1fdc7c..1c07bea 100644
---- a/frontend/app/home.tsx
-+++ b/frontend/app/home.tsx
-@@ -89,7 +89,7 @@ export default function Home() {
-           {/* Begin Darshan Button */}
-           <TouchableOpacity 
-             style={styles.primaryButton}
--            onPress={() => router.push('/ritual/prepare')}
-+            onPress={() => router.push('/ritual/breathing')}
+diff --git a/frontend/app/ritual/seva.tsx b/frontend/app/ritual/seva.tsx
+index 9846279..53e3720 100644
+--- a/frontend/app/ritual/seva.tsx
++++ b/frontend/app/ritual/seva.tsx
+@@ -108,7 +108,7 @@ export default function Seva() {
+             disabled={!selectedSeva}
            >
-             <Ionicons name="flower" size={24} color="#FFFFFF" style={styles.buttonIcon} />
-             <Text style={styles.primaryButtonText}>Begin Morning Darshan</Text>
+             <Ionicons name="heart" size={20} color="#FFFFFF" style={styles.buttonIcon} />
+-            <Text style={styles.donateButtonText}>Donate ₹1</Text>
++            <Text style={styles.donateButtonText}>Contribute ₹1</Text>
+           </TouchableOpacity>
+           
+           <TouchableOpacity 
+diff --git a/model.patch b/model.patch
+index c145024..e69de29 100644
+--- a/model.patch
++++ b/model.patch
+@@ -1,13 +0,0 @@
+-diff --git a/frontend/app/home.tsx b/frontend/app/home.tsx
+-index b1fdc7c..1c07bea 100644
+---- a/frontend/app/home.tsx
+-+++ b/frontend/app/home.tsx
+-@@ -89,7 +89,7 @@ export default function Home() {
+-           {/* Begin Darshan Button */}
+-           <TouchableOpacity 
+-             style={styles.primaryButton}
+--            onPress={() => router.push('/ritual/prepare')}
+-+            onPress={() => router.push('/ritual/breathing')}
+-           >
+-             <Ionicons name="flower" size={24} color="#FFFFFF" style={styles.buttonIcon} />
+-             <Text style={styles.primaryButtonText}>Begin Morning Darshan</Text>
