@@ -332,7 +332,7 @@ export default function Darshan() {
             ]}
           />
           <Text style={styles.buttonText}>
-            {isReady ? 'Time for Wisdom →' : `Receiving Blessings... ${Math.floor(fillPercentage)}%`}
+            {isReady ? 'Time for Wisdom →' : 'Receiving Blessings...'}
           </Text>
         </TouchableOpacity>
       </View>
