@@ -143,10 +143,6 @@ const styles = StyleSheet.create({
     borderColor: '#FF6B35',
     backgroundColor: '#FFF3ED',
   },
-  deityCardSecondary: {
-    borderColor: '#FFB88C',
-    backgroundColor: '#FFF9F5',
-  },
   deityInfo: {
     flex: 1,
   },
