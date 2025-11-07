@@ -286,7 +286,6 @@ export default function Darshan() {
               flowerOffered && styles.offeringButtonUsed
             ]}
             onPress={offerFlower}
-            disabled={flowerOffered}
           >
             <Text style={styles.offeringEmoji}>🌸</Text>
             <Text style={styles.offeringText}>Offer Flower</Text>
