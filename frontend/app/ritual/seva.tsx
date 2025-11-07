@@ -108,7 +108,7 @@ export default function Seva() {
             disabled={!selectedSeva}
           >
             <Ionicons name="heart" size={20} color="#FFFFFF" style={styles.buttonIcon} />
-            <Text style={styles.donateButtonText}>Donate ₹1</Text>
+            <Text style={styles.donateButtonText}>Contribute ₹1</Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
