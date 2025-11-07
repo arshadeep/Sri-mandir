@@ -45,8 +45,21 @@ export default function Seva() {
     router.replace('/home');
   };
 
+  const sevaOption = SEVA_OPTIONS.find(s => s.id === selectedSeva);
+
   return (
     <SafeAreaView style={styles.container}>
+      {showConfirmation && (
+        <View style={styles.confirmationOverlay}>
+          <View style={styles.confirmationCard}>
+            <Text style={styles.confirmationEmoji}>🙏</Text>
+            <Text style={styles.confirmationTitle}>Seva Complete</Text>
+            <Text style={styles.confirmationMessage}>
+              Thank you for contributing to {sevaOption?.title}. Your devotion and generosity will help many.
+            </Text>
+          </View>
+        </View>
+      )}
       <View style={styles.content}>
         <View style={styles.iconContainer}>
           <Text style={styles.heartEmoji}>💛</Text>
