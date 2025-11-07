@@ -187,11 +187,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 40,
   },
-  helperText: {
-    fontSize: 14,
-    color: '#8B6F47',
+  devotionalMessage: {
+    fontSize: 16,
+    color: '#6B4423',
     textAlign: 'center',
-    marginTop: 16,
+    marginTop: 24,
     fontStyle: 'italic',
+    lineHeight: 24,
+    paddingHorizontal: 16,
   },
 });
