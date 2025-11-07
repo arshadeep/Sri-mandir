@@ -89,7 +89,7 @@ export default function Home() {
           {/* Begin Darshan Button */}
           <TouchableOpacity 
             style={styles.primaryButton}
-            onPress={() => router.push('/ritual/prepare')}
+            onPress={() => router.push('/ritual/breathing')}
           >
             <Ionicons name="flower" size={24} color="#FFFFFF" style={styles.buttonIcon} />
             <Text style={styles.primaryButtonText}>Begin Morning Darshan</Text>
