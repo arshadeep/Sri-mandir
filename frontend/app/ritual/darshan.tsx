@@ -322,7 +322,6 @@ export default function Darshan() {
               bellRung && styles.offeringButtonUsed
             ]}
             onPress={ringBell}
-            disabled={bellRung}
           >
             <Ionicons 
               name={bellRung ? "notifications" : "notifications-outline"} 
