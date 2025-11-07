@@ -59,12 +59,6 @@ export default function Home() {
               <Text style={styles.greeting}>Good Morning</Text>
               <Text style={styles.userName}>{user?.name || 'Devotee'}</Text>
             </View>
-            <TouchableOpacity 
-              style={styles.iconButton}
-              onPress={() => router.push('/settings/index')}
-            >
-              <Ionicons name="settings-outline" size={24} color="#2C1810" />
-            </TouchableOpacity>
           </View>
           
           {/* Today's Deity Card */}
