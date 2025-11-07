@@ -314,4 +314,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 24,
   },
+  amountSection: {
+    marginBottom: 24,
+  },
+  amountLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#2C1810',
+    marginBottom: 12,
+  },
+  amountInput: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: '#FFE4D6',
+    borderRadius: 12,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#2C1810',
+  },
 });
