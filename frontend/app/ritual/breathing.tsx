@@ -14,25 +14,34 @@ export default function Breathing() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    let navigationDone = false;
+    
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
           clearInterval(timer);
           // Auto navigate after breathing completes
-          setTimeout(() => {
-            router.push({
-              pathname: '/ritual/darshan',
-              params: { soundscape_on: 'true' }
-            });
-          }, 500);
+          if (!navigationDone) {
+            navigationDone = true;
+            setTimeout(() => {
+              try {
+                router.replace('/ritual/darshan');
+              } catch (error) {
+                console.log('Navigation error:', error);
+              }
+            }, 1000);
+          }
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
 
-    return () => clearInterval(timer);
-  }, []);
+    return () => {
+      clearInterval(timer);
+      navigationDone = true;
+    };
+  }, [router]);
 
   useEffect(() => {
     // Breathing animation cycle (4 seconds per cycle)
