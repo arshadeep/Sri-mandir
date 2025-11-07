@@ -148,10 +148,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF8F0',
   },
-  content: {
+  scrollView: {
     flex: 1,
+  },
+  scrollContent: {
     padding: 24,
-    paddingTop: 40,
+    paddingBottom: 40,
   },
   iconContainer: {
     alignItems: 'center',
