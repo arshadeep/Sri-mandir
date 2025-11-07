@@ -96,9 +96,12 @@ export default function Breathing() {
     };
 
     breathingCycle();
-    breathingInterval = setInterval(breathingCycle, 6000); // Increased delay between chants
+    breathingInterval = setInterval(breathingCycle, 6500);
 
-    return () => clearInterval(breathingInterval);
+    return () => {
+      clearInterval(breathingInterval);
+      stopOmChant(); // Stop audio when component unmounts
+    };
   }, []);
 
   const handleContinue = () => {
