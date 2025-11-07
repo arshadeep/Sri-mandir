@@ -41,8 +41,12 @@ export default function Home() {
     );
   }
 
-  const primaryDeity = DEITIES.find(d => d.id === preferences?.primary_deity);
-  const deityImages = DEITY_IMAGES[preferences?.primary_deity || 'ganesha'];
+  // Get today's deity based on rotation
+  const selectedDeities = preferences?.selected_deities || [preferences?.primary_deity] || ['ganesha'];
+  const todaysDeityId = getTodaysDeity(selectedDeities);
+  const todaysDeity = DEITIES.find(d => d.id === todaysDeityId) || DEITIES[0];
+  
+  const deityImages = DEITY_IMAGES[todaysDeityId];
   const deityImage = deityImages ? deityImages[0] : '';
 
   return (
