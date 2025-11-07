@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Animated, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { View, Text, StyleSheet, SafeAreaView, Animated, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 import { playOmChant } from '../../utils/audioManager';
 import { useUserStore } from '../../store/userStore';
 import { DEITIES } from '../../utils/constants';
@@ -19,60 +19,32 @@ const DEVOTIONAL_MESSAGES = [
 export default function Breathing() {
   const router = useRouter();
   const { preferences } = useUserStore();
-  const [timeLeft, setTimeLeft] = useState(BREATHING_DURATION);
   const [phase, setPhase] = useState<'inhale' | 'exhale'>('inhale');
   const [currentMessage, setCurrentMessage] = useState(0);
-  const [showCTA, setShowCTA] = useState(false);
+  const [fillPercentage, setFillPercentage] = useState(0);
+  const [isReady, setIsReady] = useState(false);
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const ctaFadeAnim = useRef(new Animated.Value(0)).current;
 
   // Get today's deity
   const selectedDeities = preferences?.selected_deities || [preferences?.primary_deity] || ['ganesha'];
   const todaysDeityId = getTodaysDeity(selectedDeities);
   const todaysDeity = DEITIES.find(d => d.id === todaysDeityId) || DEITIES[0];
 
+  // Fill animation - from 0% to 100% over 15 seconds
   useEffect(() => {
-    let navigationDone = false;
-    
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          if (!navigationDone) {
-            navigationDone = true;
-            setTimeout(() => {
-              try {
-                router.replace('/ritual/darshan');
-              } catch (error) {
-                console.log('Navigation error:', error);
-              }
-            }, 1000);
-          }
-          return 0;
+    const fillInterval = setInterval(() => {
+      setFillPercentage(prev => {
+        if (prev >= 100) {
+          setIsReady(true);
+          clearInterval(fillInterval);
+          return 100;
         }
-        return prev - 1;
+        return prev + (100 / 150); // 150 updates over 15 seconds
       });
-    }, 1000);
+    }, 100);
 
-    return () => {
-      clearInterval(timer);
-      navigationDone = true;
-    };
-  }, [router]);
-
-  // Show CTA after 15 seconds with animation
-  useEffect(() => {
-    const ctaTimer = setTimeout(() => {
-      setShowCTA(true);
-      Animated.timing(ctaFadeAnim, {
-        toValue: 1,
-        duration: 800,
-        useNativeDriver: true,
-      }).start();
-    }, 15000);
-
-    return () => clearTimeout(ctaTimer);
+    return () => clearInterval(fillInterval);
   }, []);
 
   useEffect(() => {
@@ -130,6 +102,7 @@ export default function Breathing() {
   }, []);
 
   const handleContinue = () => {
+    if (!isReady) return;
     router.replace('/ritual/darshan');
   };
 
@@ -160,21 +133,24 @@ export default function Breathing() {
         
         <View style={styles.spacer} />
         
-        {showCTA ? (
-          <Animated.View style={{ opacity: ctaFadeAnim }}>
-            <TouchableOpacity 
-              style={styles.button}
-              onPress={handleContinue}
-            >
-              <Text style={styles.buttonText}>{todaysDeity.name} Darshan →</Text>
-            </TouchableOpacity>
-          </Animated.View>
-        ) : (
-          <View style={styles.loaderContainer}>
-            <ActivityIndicator size="small" color="#FF6B35" />
-            <Text style={styles.loaderText}>Preparing for darshan...</Text>
-          </View>
-        )}
+        <TouchableOpacity 
+          style={[
+            styles.liquidButton,
+            !isReady && styles.liquidButtonDisabled
+          ]}
+          onPress={handleContinue}
+          disabled={!isReady}
+        >
+          <View 
+            style={[
+              styles.liquidFill,
+              { height: `${fillPercentage}%` }
+            ]}
+          />
+          <Text style={styles.buttonText}>
+            {isReady ? `${todaysDeity.name} Darshan →` : `Preparing... ${Math.floor(fillPercentage)}%`}
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -241,31 +217,37 @@ const styles = StyleSheet.create({
   spacer: {
     height: 40,
   },
-  loaderContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 18,
-  },
-  loaderText: {
-    fontSize: 14,
-    color: '#8B6F47',
-    marginLeft: 12,
-  },
-  button: {
-    backgroundColor: '#FF6B35',
+  liquidButton: {
+    position: 'relative',
+    backgroundColor: '#FFFFFF',
     paddingVertical: 18,
     borderRadius: 28,
     alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: '#FF6B35',
+    overflow: 'hidden',
     shadowColor: '#FF6B35',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 5,
   },
+  liquidButtonDisabled: {
+    opacity: 0.9,
+  },
+  liquidFill: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#FF6B35',
+    opacity: 0.8,
+  },
   buttonText: {
-    color: '#FFFFFF',
+    color: '#2C1810',
     fontSize: 18,
     fontWeight: '700',
+    zIndex: 1,
   },
 });

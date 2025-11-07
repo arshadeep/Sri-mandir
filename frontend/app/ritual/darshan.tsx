@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, ScrollView, Dimensions, Animated, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, ScrollView, Dimensions, Animated } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useUserStore } from '../../store/userStore';
@@ -35,12 +35,11 @@ export default function Darshan() {
   const [flowerOffered, setFlowerOffered] = useState(false);
   const [diyaLit, setDiyaLit] = useState(false);
   const [bellRung, setBellRung] = useState(false);
-  const [showCTA, setShowCTA] = useState(false);
-  const [isNavigating, setIsNavigating] = useState(false);
+  const [fillPercentage, setFillPercentage] = useState(0);
+  const [isReady, setIsReady] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
   const flowerIdRef = useRef(0);
   const diyaIdRef = useRef(0);
-  const ctaFadeAnim = useRef(new Animated.Value(0)).current;
 
   // Get today's deity
   const selectedDeities = preferences?.selected_deities || [preferences?.primary_deity] || ['ganesha'];
@@ -52,18 +51,20 @@ export default function Darshan() {
     playTempleBells();
   }, []);
 
-  // Show CTA after 5 seconds with animation
+  // Fill animation - from 0% to 100% over 5 seconds
   useEffect(() => {
-    const ctaTimer = setTimeout(() => {
-      setShowCTA(true);
-      Animated.timing(ctaFadeAnim, {
-        toValue: 1,
-        duration: 800,
-        useNativeDriver: true,
-      }).start();
-    }, 5000);
+    const fillInterval = setInterval(() => {
+      setFillPercentage(prev => {
+        if (prev >= 100) {
+          setIsReady(true);
+          clearInterval(fillInterval);
+          return 100;
+        }
+        return prev + (100 / 50); // 50 updates over 5 seconds
+      });
+    }, 100);
 
-    return () => clearTimeout(ctaTimer);
+    return () => clearInterval(fillInterval);
   }, []);
 
   // Auto-scroll images every 15 seconds
@@ -166,8 +167,7 @@ export default function Darshan() {
   };
 
   const handleContinue = () => {
-    if (isNavigating) return;
-    setIsNavigating(true);
+    if (!isReady) return;
     
     router.push({
       pathname: '/ritual/wisdom',
@@ -319,25 +319,24 @@ export default function Darshan() {
           </TouchableOpacity>
         </View>
         
-        {showCTA ? (
-          <Animated.View style={{ opacity: ctaFadeAnim }}>
-            <TouchableOpacity 
-              style={[
-                styles.button,
-                isNavigating && styles.buttonDisabled
-              ]}
-              onPress={handleContinue}
-              disabled={isNavigating}
-            >
-              <Text style={styles.buttonText}>Time for Wisdom →</Text>
-            </TouchableOpacity>
-          </Animated.View>
-        ) : (
-          <View style={styles.loaderContainer}>
-            <ActivityIndicator size="small" color="#FF6B35" />
-            <Text style={styles.loaderText}>Absorbing divine presence...</Text>
-          </View>
-        )}
+        <TouchableOpacity 
+          style={[
+            styles.liquidButton,
+            !isReady && styles.liquidButtonDisabled
+          ]}
+          onPress={handleContinue}
+          disabled={!isReady}
+        >
+          <View 
+            style={[
+              styles.liquidFill,
+              { height: `${fillPercentage}%` }
+            ]}
+          />
+          <Text style={styles.buttonText}>
+            {isReady ? 'Time for Wisdom →' : `Absorbing... ${Math.floor(fillPercentage)}%`}
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -458,36 +457,37 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 2,
   },
-  loaderContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+  liquidButton: {
+    position: 'relative',
+    backgroundColor: '#FFFFFF',
     paddingVertical: 18,
-  },
-  loaderText: {
-    fontSize: 14,
-    color: '#8B6F47',
-    marginLeft: 12,
-  },
-  button: {
-    backgroundColor: '#FF6B35',
-    paddingVertical: 16,
     borderRadius: 28,
     alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: '#FF6B35',
+    overflow: 'hidden',
     shadowColor: '#FF6B35',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 5,
   },
-  buttonDisabled: {
-    backgroundColor: '#D4B5A0',
-    shadowOpacity: 0,
-    elevation: 0,
+  liquidButtonDisabled: {
+    opacity: 0.9,
+  },
+  liquidFill: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#FF6B35',
+    opacity: 0.8,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: '#2C1810',
     fontSize: 16,
     fontWeight: '700',
+    zIndex: 1,
   },
 });
