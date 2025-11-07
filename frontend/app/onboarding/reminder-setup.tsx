@@ -21,6 +21,12 @@ export default function ReminderSetup() {
   ];
 
   const scheduleNotification = async (time: string) => {
+    // Only schedule notifications on native platforms
+    if (Platform.OS === 'web') {
+      console.log('Notification scheduling not available on web');
+      return;
+    }
+    
     try {
       const [hours, minutes] = time.split(':').map(Number);
       
