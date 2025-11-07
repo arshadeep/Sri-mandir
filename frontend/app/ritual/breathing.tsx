@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Animated } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import { playOmChant } from '../../utils/audioManager';
 
 const BREATHING_DURATION = 30; // 30 seconds
 
