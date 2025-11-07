@@ -47,9 +47,7 @@ export default function Darshan() {
   const deity = DEITIES.find(d => d.id === todaysDeityId) || DEITIES[0];
   const deityImages = DEITY_IMAGES[todaysDeityId] || DEITY_IMAGES.ganesha;
 
-  useEffect(() => {
-    playTempleBells();
-  }, []);
+  // Removed auto-play of temple bells on screen load
 
   // Fill animation - from 0% to 100% over 5 seconds
   useEffect(() => {
