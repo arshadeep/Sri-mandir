@@ -6,33 +6,25 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function DeitySelection() {
   const router = useRouter();
-  const [selectedDeity, setSelectedDeity] = useState<string>('');
-  const [secondaryDeities, setSecondaryDeities] = useState<string[]>([]);
+  const [selectedDeities, setSelectedDeities] = useState<string[]>([]);
 
-  const toggleSecondaryDeity = (deityId: string) => {
-    if (deityId === selectedDeity) return;
-    
-    if (secondaryDeities.includes(deityId)) {
-      setSecondaryDeities(secondaryDeities.filter(d => d !== deityId));
+  const toggleDeity = (deityId: string) => {
+    if (selectedDeities.includes(deityId)) {
+      setSelectedDeities(selectedDeities.filter(d => d !== deityId));
     } else {
-      if (secondaryDeities.length < 3) {
-        setSecondaryDeities([...secondaryDeities, deityId]);
-      } else {
-        Alert.alert('Limit Reached', 'You can select up to 3 secondary deities.');
-      }
+      setSelectedDeities([...selectedDeities, deityId]);
     }
   };
 
   const handleContinue = () => {
-    if (!selectedDeity) {
-      Alert.alert('Selection Required', 'Please select your primary deity.');
+    if (selectedDeities.length === 0) {
+      Alert.alert('Selection Required', 'Please select at least one deity.');
       return;
     }
     router.push({
       pathname: '/onboarding/reminder-setup',
       params: { 
-        primary_deity: selectedDeity,
-        secondary_deities: JSON.stringify(secondaryDeities)
+        selected_deities: JSON.stringify(selectedDeities)
       }
     });
   };
