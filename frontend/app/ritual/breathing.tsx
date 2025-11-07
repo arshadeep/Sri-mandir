@@ -148,7 +148,7 @@ export default function Breathing() {
             ]}
           />
           <Text style={styles.buttonText}>
-            {isReady ? `${todaysDeity.name} Darshan →` : `Preparing... ${Math.floor(fillPercentage)}%`}
+            {isReady ? `${todaysDeity.name} Darshan →` : `Finding Peace... ${Math.floor(fillPercentage)}%`}
           </Text>
         </TouchableOpacity>
       </View>
