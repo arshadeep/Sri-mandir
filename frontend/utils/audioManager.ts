@@ -30,6 +30,15 @@ export const playOmChant = async () => {
   }
 };
 
+export const stopOmChant = () => {
+  if (omChantAudio) {
+    omChantAudio.pause();
+    omChantAudio.currentTime = 0;
+    omChantAudio = null;
+    console.log('Stopped Om chant audio');
+  }
+};
+
 export const playTempleBells = async () => {
   try {
     // Stop any existing bell sound
