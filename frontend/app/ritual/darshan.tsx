@@ -158,19 +158,26 @@ export default function Darshan() {
     playBellSound(); // Play bell sound
   };
 
+  const [showCTA, setShowCTA] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
+
+  // Show CTA after 5 seconds on screen load
+  useEffect(() => {
+    const ctaTimer = setTimeout(() => {
+      setShowCTA(true);
+    }, 5000);
+
+    return () => clearTimeout(ctaTimer);
+  }, []);
 
   const handleContinue = () => {
     if (isNavigating) return;
     setIsNavigating(true);
     
-    // Add 5 second delay before navigation
-    setTimeout(() => {
-      router.push({
-        pathname: '/ritual/wisdom',
-        params: { soundscape_on: params.soundscape_on }
-      });
-    }, 5000);
+    router.push({
+      pathname: '/ritual/wisdom',
+      params: { soundscape_on: params.soundscape_on }
+    });
   };
   const deity = DEITIES.find(d => d.id === preferences?.primary_deity) || DEITIES[0];
   const deityImages = DEITY_IMAGES[preferences?.primary_deity || 'ganesha'] || [];
