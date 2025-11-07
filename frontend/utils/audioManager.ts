@@ -95,8 +95,19 @@ export const playBellSound = async () => {
     
     // Create new audio instance
     bellAudio = new Audio(require('../assets/audio/bell.mp3'));
-    bellAudio.volume = 0.5;
+    bellAudio.volume = 0;
     await bellAudio.play();
+    
+    // Fade in bell
+    let vol = 0;
+    const fadeIn = setInterval(() => {
+      if (vol < 0.5) {
+        vol += 0.05;
+        if (bellAudio) bellAudio.volume = Math.min(vol, 0.5);
+      } else {
+        clearInterval(fadeIn);
+      }
+    }, 50);
     
     console.log('Playing bell sound audio');
   } catch (error) {
