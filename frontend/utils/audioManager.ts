@@ -32,27 +32,18 @@ export const playOmChant = async () => {
 
 export const playTempleBells = async () => {
   try {
-    const ctx = getAudioContext();
-    if (!ctx) return;
+    // Stop any existing bell sound
+    if (bellAudio) {
+      bellAudio.pause();
+      bellAudio.currentTime = 0;
+    }
     
-    const frequencies = [523.25, 659.25, 783.99]; // C5, E5, G5
-    frequencies.forEach((freq, index) => {
-      setTimeout(() => {
-        const oscillator = ctx.createOscillator();
-        const gainNode = ctx.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(ctx.destination);
-        
-        oscillator.frequency.value = freq;
-        oscillator.type = 'sine';
-        gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.5);
-        
-        oscillator.start(ctx.currentTime);
-        oscillator.stop(ctx.currentTime + 1.5);
-      }, index * 300);
-    });
+    // Create new audio instance
+    bellAudio = new Audio(require('../assets/audio/bell.mp3'));
+    bellAudio.volume = 0.5;
+    await bellAudio.play();
+    
+    console.log('Playing temple bells audio');
   } catch (error) {
     console.log('Error playing temple bells:', error);
   }
