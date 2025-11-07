@@ -1,16 +1,9 @@
-let audioContext: AudioContext | null = null;
 let lastSoundTime = 0;
-const SOUND_DEBOUNCE = 3000; // Prevent playing sound within 3 seconds
+const SOUND_DEBOUNCE = 1000; // Prevent playing sound within 1 second
 
-const getAudioContext = () => {
-  if (typeof window !== 'undefined' && window.AudioContext) {
-    if (!audioContext) {
-      audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    }
-    return audioContext;
-  }
-  return null;
-};
+// Audio instances for better control
+let omChantAudio: HTMLAudioElement | null = null;
+let bellAudio: HTMLAudioElement | null = null;
 
 export const playOmChant = async () => {
   try {
@@ -20,22 +13,18 @@ export const playOmChant = async () => {
     }
     lastSoundTime = now;
     
-    const ctx = getAudioContext();
-    if (!ctx) return;
+    // Stop any existing chant
+    if (omChantAudio) {
+      omChantAudio.pause();
+      omChantAudio.currentTime = 0;
+    }
     
-    const oscillator = ctx.createOscillator();
-    const gainNode = ctx.createGain();
+    // Create new audio instance with cache busting
+    omChantAudio = new Audio(require('../assets/audio/om_chant.mp3'));
+    omChantAudio.volume = 0.6;
+    await omChantAudio.play();
     
-    oscillator.connect(gainNode);
-    gainNode.connect(ctx.destination);
-    
-    oscillator.frequency.value = 136.1; // Om frequency (C#)
-    oscillator.type = 'sine';
-    gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 2);
-    
-    oscillator.start(ctx.currentTime);
-    oscillator.stop(ctx.currentTime + 2);
+    console.log('Playing Om chant audio');
   } catch (error) {
     console.log('Error playing Om chant:', error);
   }
