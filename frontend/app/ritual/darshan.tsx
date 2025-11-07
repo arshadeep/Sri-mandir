@@ -302,7 +302,6 @@ export default function Darshan() {
               diyaLit && styles.offeringButtonUsed
             ]}
             onPress={lightDiya}
-            disabled={diyaLit}
           >
             <Ionicons 
               name={diyaLit ? "flame" : "flame-outline"} 
