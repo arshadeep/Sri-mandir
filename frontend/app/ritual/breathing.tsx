@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, Animated } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { playOmChant } from '../../utils/audioManager';
 
-const BREATHING_DURATION = 30; // 30 seconds
+const BREATHING_DURATION = 15; // Changed from 30 to 15 seconds
 
 const DEVOTIONAL_MESSAGES = [
   "Close your eyes, remember your chosen deity",
