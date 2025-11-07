@@ -52,19 +52,20 @@ export default function ReminderSetup() {
       const userData = await createUser('User');
       console.log('User created:', userData);
       
-      // Parse secondary deities
-      let secondaryDeities: string[] = [];
+      // Parse selected deities
+      let selectedDeities: string[] = [];
       try {
-        secondaryDeities = JSON.parse(params.secondary_deities as string || '[]');
+        selectedDeities = JSON.parse(params.selected_deities as string || '[]');
       } catch (e) {
-        secondaryDeities = [];
+        selectedDeities = [];
       }
       
       // Create preferences
       const prefsData = {
         user_id: userData.id,
-        primary_deity: params.primary_deity as string,
-        secondary_deities: secondaryDeities,
+        primary_deity: selectedDeities[0], // First selected for backward compatibility
+        secondary_deities: selectedDeities.slice(1), // Rest as secondary
+        selected_deities: selectedDeities, // Store all selected
         reminder_time: reminderTime,
         soundscape_default_on: soundscapeOn,
         soundscape_type: 'temple_bells',
