@@ -63,7 +63,7 @@ export default function Seva() {
           </View>
         </View>
       )}
-      <View style={styles.content}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
         <View style={styles.iconContainer}>
           <Text style={styles.heartEmoji}>💛</Text>
         </View>
