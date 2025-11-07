@@ -5,11 +5,20 @@ import { playOmChant } from '../../utils/audioManager';
 
 const BREATHING_DURATION = 30; // 30 seconds
 
+const DEVOTIONAL_MESSAGES = [
+  "Close your eyes, remember your chosen deity",
+  "Feel the divine presence within you",
+  "Let peace fill your heart with each breath",
+  "Connect with the sacred energy around you",
+  "Your devotion brings you closer to the divine",
+];
+
 export default function Breathing() {
   const router = useRouter();
   const params = useLocalSearchParams();
   const [timeLeft, setTimeLeft] = useState(BREATHING_DURATION);
   const [phase, setPhase] = useState<'inhale' | 'exhale'>('inhale');
+  const [currentMessage, setCurrentMessage] = useState(0);
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
