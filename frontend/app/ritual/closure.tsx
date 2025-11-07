@@ -70,7 +70,7 @@ export default function Closure() {
   };
 
   const handleDone = () => {
-    router.replace('/home');
+    router.push('/ritual/seva');
   };
 
   return (
