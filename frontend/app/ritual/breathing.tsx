@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Animated } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Animated } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 
 const BREATHING_DURATION = 30; // 30 seconds
 
@@ -10,7 +9,6 @@ export default function Breathing() {
   const params = useLocalSearchParams();
   const [timeLeft, setTimeLeft] = useState(BREATHING_DURATION);
   const [phase, setPhase] = useState<'inhale' | 'exhale'>('inhale');
-  const [chantCount, setChantCount] = useState(0);
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -19,6 +17,13 @@ export default function Breathing() {
       setTimeLeft(prev => {
         if (prev <= 1) {
           clearInterval(timer);
+          // Auto navigate after breathing completes
+          setTimeout(() => {
+            router.push({
+              pathname: '/ritual/darshan',
+              params: { soundscape_on: 'true' }
+            });
+          }, 500);
           return 0;
         }
         return prev - 1;
@@ -66,25 +71,12 @@ export default function Breathing() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleChant = () => {
-    setChantCount(prev => prev + 1);
-  };
-
-  const handleContinue = () => {
-    router.push({
-      pathname: '/ritual/puja',
-      params: { soundscape_on: params.soundscape_on }
-    });
-  };
-
-  const canContinue = timeLeft === 0;
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Breathe & Chant "ॐ"</Text>
         <Text style={styles.subtitle}>
-          Let's begin with calm breathing. On each exhale, softly chant "ॐ".
+          Take slow, deep breaths. On each exhale, softly chant "ॐ".
         </Text>
         
         <View style={styles.breathingContainer}>
@@ -102,31 +94,9 @@ export default function Breathing() {
           </Text>
         </View>
         
-        <TouchableOpacity 
-          style={styles.chantButton}
-          onPress={handleChant}
-        >
-          <Ionicons name="mic-outline" size={24} color="#FF6B35" />
-          <Text style={styles.chantButtonText}>Tap to Chant</Text>
-          <Text style={styles.chantCount}>Count: {chantCount}</Text>
-        </TouchableOpacity>
+        <Text style={styles.timer}>{timeLeft}s</Text>
         
-        <Text style={styles.timer}>{timeLeft}s remaining</Text>
-        
-        <View style={styles.spacer} />
-        
-        <TouchableOpacity 
-          style={[
-            styles.button,
-            !canContinue && styles.buttonDisabled
-          ]}
-          onPress={handleContinue}
-          disabled={!canContinue}
-        >
-          <Text style={styles.buttonText}>
-            {canContinue ? 'Continue' : `Wait ${timeLeft}s...`}
-          </Text>
-        </TouchableOpacity>
+        <Text style={styles.helperText}>Connecting with divine energy...</Text>
       </View>
     </SafeAreaView>
   );
@@ -181,59 +151,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FF6B35',
   },
-  chantButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFF3ED',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 20,
-    marginTop: 24,
-    borderWidth: 2,
-    borderColor: '#FFD4B8',
-    alignSelf: 'center',
-  },
-  chantButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#FF6B35',
-    marginLeft: 8,
-    marginRight: 12,
-  },
-  chantCount: {
-    fontSize: 14,
-    color: '#8B6F47',
-  },
   timer: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
     color: '#8B6F47',
     textAlign: 'center',
-    marginTop: 24,
+    marginTop: 40,
   },
-  spacer: {
-    flex: 1,
-  },
-  button: {
-    backgroundColor: '#FF6B35',
-    paddingVertical: 18,
-    borderRadius: 28,
-    alignItems: 'center',
-    shadowColor: '#FF6B35',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
-  },
-  buttonDisabled: {
-    backgroundColor: '#D4B5A0',
-    shadowOpacity: 0,
-    elevation: 0,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '700',
+  helperText: {
+    fontSize: 14,
+    color: '#8B6F47',
+    textAlign: 'center',
+    marginTop: 16,
+    fontStyle: 'italic',
   },
 });
