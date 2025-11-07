@@ -100,7 +100,6 @@ export default function Breathing() {
 
     return () => {
       clearInterval(breathingInterval);
-      stopOmChant();
     };
   }, []);
 
