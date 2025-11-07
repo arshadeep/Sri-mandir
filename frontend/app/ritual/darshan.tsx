@@ -155,7 +155,7 @@ export default function Darshan() {
 
   const ringBell = () => {
     setBellRung(true);
-    // Bell sound would play here
+    playBellSound(); // Play bell sound
   };
 
   const [isNavigating, setIsNavigating] = useState(false);
