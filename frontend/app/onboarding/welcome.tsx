@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput, Alert, KeyboardAvoidingView, Platform, ScrollView, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+
+const TEMPLE_IMAGE = 'https://customer-assets.emergentagent.com/job_srimandir/artifacts/glf2b8ka_Outside_the_Bull_Temple%2C_Bangalore%2C_India_20170916114001.jpg';
 
 export default function Welcome() {
   const router = useRouter();
@@ -30,13 +32,12 @@ export default function Welcome() {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.content}>
-            {/* Temple Image Background */}
-            <View style={styles.imageContainer}>
-              <View style={styles.templeIconContainer}>
-                <Ionicons name="business" size={120} color="#FF6B35" />
-              </View>
-              <Text style={styles.templeText}>🕉️ Hindu Temple 🕉️</Text>
-            </View>
+            {/* Temple Image */}
+            <Image 
+              source={{ uri: TEMPLE_IMAGE }}
+              style={styles.templeImage}
+              resizeMode="cover"
+            />
             
             <View style={styles.iconContainer}>
               <Ionicons name="flower" size={60} color="#FF6B35" />
@@ -90,23 +91,11 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
     justifyContent: 'center',
   },
-  imageContainer: {
-    alignItems: 'center',
-    marginBottom: 32,
-    backgroundColor: '#FFF3ED',
-    paddingVertical: 40,
-    paddingHorizontal: 20,
+  templeImage: {
+    width: '100%',
+    height: 250,
     borderRadius: 20,
-    borderWidth: 2,
-    borderColor: '#FFD4B8',
-  },
-  templeIconContainer: {
-    marginBottom: 16,
-  },
-  templeText: {
-    fontSize: 18,
-    color: '#FF6B35',
-    fontWeight: '600',
+    marginBottom: 24,
   },
   iconContainer: {
     alignItems: 'center',

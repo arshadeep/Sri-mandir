@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Alert } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { DEITIES } from '../../utils/constants';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function DeitySelection() {
   const router = useRouter();
+  const params = useLocalSearchParams();
   const [selectedDeities, setSelectedDeities] = useState<string[]>([]);
 
   const toggleDeity = (deityId: string) => {
@@ -25,7 +26,7 @@ export default function DeitySelection() {
       pathname: '/onboarding/reminder-setup',
       params: { 
         selected_deities: JSON.stringify(selectedDeities),
-        user_name: params.user_name
+        user_name: params.user_name || 'User'
       }
     });
   };
@@ -118,17 +119,6 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: 32,
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#2C1810',
-    marginBottom: 8,
-  },
-  helperText: {
-    fontSize: 14,
-    color: '#8B6F47',
-    marginBottom: 16,
-  },
   deityCard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -157,24 +147,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#8B6F47',
   },
-  radio: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: '#D4B5A0',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  radioSelected: {
-    borderColor: '#FF6B35',
-  },
-  radioInner: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: '#FF6B35',
-  },
   checkbox: {
     width: 24,
     height: 24,
@@ -187,6 +159,12 @@ const styles = StyleSheet.create({
   checkboxSelected: {
     backgroundColor: '#FF6B35',
     borderColor: '#FF6B35',
+  },
+  helperText: {
+    fontSize: 14,
+    color: '#8B6F47',
+    textAlign: 'center',
+    marginBottom: 16,
   },
   button: {
     backgroundColor: '#FF6B35',
