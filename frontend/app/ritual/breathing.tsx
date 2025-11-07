@@ -103,6 +103,7 @@ export default function Breathing() {
 
   const handleContinue = () => {
     if (!isReady) return;
+    stopOmChant();
     router.replace('/ritual/darshan');
   };
 
