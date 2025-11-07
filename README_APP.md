@@ -162,8 +162,8 @@ yarn start
 ### Environment Variables
 Frontend `.env`:
 ```
-EXPO_PUBLIC_BACKEND_URL=https://<your-domain>.preview.emergentagent.com
-EXPO_PACKAGER_HOSTNAME=https://<app-name>.preview.emergentagent.com
+EXPO_PUBLIC_BACKEND_URL=https://mandir-ritual.preview.emergentagent.com
+EXPO_PACKAGER_HOSTNAME=https://mandir-ritual.preview.emergentagent.com
 ```
 
 Backend `.env`:
@@ -175,7 +175,7 @@ DB_NAME=sri_mandir
 ## 📱 Testing
 
 ### Web Preview
-Access at: `https://srimandir.preview.emergentagent.com`
+Access at: `https://mandir-ritual.preview.emergentagent.com`
 
 ### Mobile Testing (Expo Go)
 1. Install Expo Go app on iOS/Android
