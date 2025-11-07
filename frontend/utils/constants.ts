@@ -21,9 +21,9 @@ export const DEITY_IMAGES: { [key: string]: string[] } = {
     'https://images.pexels.com/photos/13716105/pexels-photo-13716105.jpeg',
   ],
   shiva: [
-    'https://images.unsplash.com/photo-1637630414497-a306a1adcac5',
-    'https://images.pexels.com/photos/30373285/pexels-photo-30373285.jpeg',
-    'https://images.pexels.com/photos/31581083/pexels-photo-31581083.jpeg',
+    'https://images.unsplash.com/photo-1655106883522-9296e0c1f4ec',
+    'https://images.unsplash.com/photo-1708884534732-d4a75fb84d7e',
+    'https://images.unsplash.com/photo-1696236884442-ff2cae874732',
   ],
   durga: [
     'https://images.unsplash.com/photo-1728974617202-6af1be44672b',
