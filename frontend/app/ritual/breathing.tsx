@@ -125,7 +125,7 @@ export default function Breathing() {
         
         <Text style={styles.timer}>{timeLeft}s</Text>
         
-        <Text style={styles.helperText}>Connecting with divine energy...</Text>
+        <Text style={styles.devotionalMessage}>{DEVOTIONAL_MESSAGES[currentMessage]}</Text>
       </View>
     </SafeAreaView>
   );
