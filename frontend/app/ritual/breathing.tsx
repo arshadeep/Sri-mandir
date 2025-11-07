@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, Animated } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { playOmChant } from '../../utils/audioManager';
 
-const BREATHING_DURATION = 15; // Changed from 30 to 15 seconds
+const BREATHING_DURATION = 15; // 15 seconds
 
 const DEVOTIONAL_MESSAGES = [
   "Close your eyes, remember your chosen deity",
@@ -29,7 +29,6 @@ export default function Breathing() {
       setTimeLeft(prev => {
         if (prev <= 1) {
           clearInterval(timer);
-          // Auto navigate after breathing completes
           if (!navigationDone) {
             navigationDone = true;
             setTimeout(() => {
@@ -52,7 +51,6 @@ export default function Breathing() {
     };
   }, [router]);
 
-  // Change message every 6 seconds
   useEffect(() => {
     const messageInterval = setInterval(() => {
       setCurrentMessage(prev => (prev + 1) % DEVOTIONAL_MESSAGES.length);
@@ -62,18 +60,15 @@ export default function Breathing() {
   }, []);
 
   useEffect(() => {
-    // Breathing animation cycle (4 seconds per cycle)
     const breathingCycle = () => {
-      // Inhale (2 seconds)
       setPhase('inhale');
       Animated.timing(scaleAnim, {
         toValue: 1.5,
         duration: 2000,
         useNativeDriver: true,
       }).start(() => {
-        // Exhale (2 seconds) - show Om and play sound
         setPhase('exhale');
-        playOmChant(); // Play Om sound on exhale
+        playOmChant();
         Animated.timing(fadeAnim, {
           toValue: 1,
           duration: 500,
@@ -122,8 +117,6 @@ export default function Breathing() {
             {phase === 'inhale' ? 'Inhale...' : 'Exhale... "ॐ"'}
           </Text>
         </View>
-        
-        <Text style={styles.timer}>{timeLeft}s</Text>
         
         <Text style={styles.devotionalMessage}>{DEVOTIONAL_MESSAGES[currentMessage]}</Text>
       </View>
@@ -180,18 +173,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FF6B35',
   },
-  timer: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#8B6F47',
-    textAlign: 'center',
-    marginTop: 40,
-  },
   devotionalMessage: {
     fontSize: 16,
     color: '#6B4423',
     textAlign: 'center',
-    marginTop: 24,
+    marginTop: 40,
     fontStyle: 'italic',
     lineHeight: 24,
     paddingHorizontal: 16,

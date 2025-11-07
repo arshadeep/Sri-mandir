@@ -1,37 +1,74 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
-import { TEMPLE_IMAGE } from '../../utils/constants';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function Welcome() {
   const router = useRouter();
+  const [name, setName] = useState('');
+
+  const handleBegin = () => {
+    if (!name.trim()) {
+      Alert.alert('Name Required', 'Please enter your name to continue.');
+      return;
+    }
+    
+    router.push({
+      pathname: '/onboarding/deity-selection',
+      params: { user_name: name.trim() }
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.iconContainer}>
-          <Ionicons name="flower" size={80} color="#FF6B35" />
-        </View>
-        
-        <Text style={styles.title}>Sri Mandir</Text>
-        <Text style={styles.subtitle}>A peaceful start to your mornings awaits</Text>
-        
-        <Image 
-          source={{ uri: TEMPLE_IMAGE }}
-          style={styles.image}
-          resizeMode="cover"
-        />
-        
-        <View style={styles.spacer} />
-        
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={() => router.push('/onboarding/deity-selection')}
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardView}
+      >
+        <ScrollView 
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.buttonText}>Begin</Text>
-        </TouchableOpacity>
-      </View>
+          <View style={styles.content}>
+            {/* Temple Image Background */}
+            <View style={styles.imageContainer}>
+              <View style={styles.templeIconContainer}>
+                <Ionicons name="business" size={120} color="#FF6B35" />
+              </View>
+              <Text style={styles.templeText}>🕉️ Hindu Temple 🕉️</Text>
+            </View>
+            
+            <View style={styles.iconContainer}>
+              <Ionicons name="flower" size={60} color="#FF6B35" />
+            </View>
+            
+            <Text style={styles.title}>Sri Mandir</Text>
+            <Text style={styles.subtitle}>A peaceful start to your mornings awaits</Text>
+            
+            <View style={styles.inputSection}>
+              <Text style={styles.inputLabel}>Enter Your Name</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Your name"
+                placeholderTextColor="#D4B5A0"
+                value={name}
+                onChangeText={setName}
+                autoCapitalize="words"
+                autoCorrect={false}
+              />
+            </View>
+            
+            <View style={styles.spacer} />
+            
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={handleBegin}
+            >
+              <Text style={styles.buttonText}>Begin Your Journey</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -41,13 +78,38 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF8F0',
   },
+  keyboardView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
   content: {
     flex: 1,
     paddingHorizontal: 24,
+    paddingVertical: 40,
     justifyContent: 'center',
+  },
+  imageContainer: {
     alignItems: 'center',
+    marginBottom: 32,
+    backgroundColor: '#FFF3ED',
+    paddingVertical: 40,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: '#FFD4B8',
+  },
+  templeIconContainer: {
+    marginBottom: 16,
+  },
+  templeText: {
+    fontSize: 18,
+    color: '#FF6B35',
+    fontWeight: '600',
   },
   iconContainer: {
+    alignItems: 'center',
     marginBottom: 24,
   },
   title: {
@@ -60,25 +122,39 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: '#6B4423',
-    marginBottom: 32,
+    marginBottom: 40,
     textAlign: 'center',
     lineHeight: 24,
   },
-  image: {
-    width: '100%',
-    height: 250,
+  inputSection: {
+    marginBottom: 24,
+  },
+  inputLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#2C1810',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  input: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: '#FFE4D6',
     borderRadius: 16,
-    marginBottom: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    fontSize: 18,
+    color: '#2C1810',
+    textAlign: 'center',
   },
   spacer: {
     flex: 1,
   },
   button: {
     backgroundColor: '#FF6B35',
-    paddingVertical: 16,
+    paddingVertical: 18,
     paddingHorizontal: 48,
     borderRadius: 28,
-    width: '100%',
     alignItems: 'center',
     marginBottom: 24,
     shadowColor: '#FF6B35',
@@ -90,6 +166,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '700',
   },
 });
