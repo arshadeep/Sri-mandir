@@ -49,10 +49,21 @@ export const stopOmChant = () => {
   }
   
   if (omChantAudio) {
-    omChantAudio.pause();
-    omChantAudio.currentTime = 0;
-    omChantAudio = null;
-    console.log('Stopped Om chant audio immediately');
+    let vol = omChantAudio.volume;
+    const quickFade = setInterval(() => {
+      vol -= 0.2;
+      if (vol <= 0 || !omChantAudio) {
+        clearInterval(quickFade);
+        if (omChantAudio) {
+          omChantAudio.pause();
+          omChantAudio.currentTime = 0;
+          omChantAudio = null;
+        }
+      } else {
+        omChantAudio.volume = vol;
+      }
+    }, 50);
+    console.log('Stopping Om chant with quick fade');
   }
 };
 
