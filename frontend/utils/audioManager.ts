@@ -25,18 +25,18 @@ export const playOmChant = async () => {
     omChantAudio.volume = 0;
     await omChantAudio.play();
     
-    // Fade in
+    // Fade in to mid volume
     let vol = 0;
     const fadeIn = setInterval(() => {
-      if (vol < 0.6) {
-        vol += 0.05;
-        if (omChantAudio) omChantAudio.volume = Math.min(vol, 0.6);
+      if (vol < 0.4) {
+        vol += 0.04;
+        if (omChantAudio) omChantAudio.volume = Math.min(vol, 0.4);
       } else {
         clearInterval(fadeIn);
       }
     }, 50);
     
-    console.log('Playing Om chant audio');
+    console.log('Playing Om chant audio at mid volume');
   } catch (error) {
     console.log('Error playing Om chant:', error);
   }
