@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useUserStore } from '../store/userStore';
 import { getWeekdayDeity, getStreak } from '../services/api';
 import { DEITY_IMAGES, DEITIES } from '../utils/constants';
+import { getTodaysDeity } from '../utils/deityRotation';
 
 export default function Home() {
   const router = useRouter();
