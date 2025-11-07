@@ -74,8 +74,20 @@ export default function Seva() {
         </Text>
         
         <Text style={styles.questionText}>
-          Would you like to contribute ₹1 today towards:
+          Would you like to contribute today towards:
         </Text>
+        
+        <View style={styles.amountSection}>
+          <Text style={styles.amountLabel}>Enter Amount (₹)</Text>
+          <TextInput
+            style={styles.amountInput}
+            value={customAmount}
+            onChangeText={setCustomAmount}
+            placeholder="1"
+            keyboardType="numeric"
+            placeholderTextColor="#8B6F47"
+          />
+        </View>
         
         <View style={styles.sevaOptions}>
           {SEVA_OPTIONS.map((option) => (
