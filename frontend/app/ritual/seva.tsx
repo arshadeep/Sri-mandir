@@ -138,7 +138,7 @@ export default function Seva() {
             <Text style={styles.skipButtonText}>Not Today</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
