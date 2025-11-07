@@ -41,6 +41,9 @@ export default function Darshan() {
   const diyaIdRef = useRef(0);
 
   useEffect(() => {
+    // Play temple bells when screen loads (soundscape on)
+    playTempleBells();
+    
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
