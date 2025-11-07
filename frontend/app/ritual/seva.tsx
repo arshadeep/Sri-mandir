@@ -70,7 +70,7 @@ export default function Seva() {
         
         <Text style={styles.title}>Do Seva Today</Text>
         <Text style={styles.subtitle}>
-          Serving others is also a form of devotion.
+          Serving others is a form of devotion. (Optional)
         </Text>
         
         <Text style={styles.questionText}>
