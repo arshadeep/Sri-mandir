@@ -27,26 +27,18 @@ const SEVA_OPTIONS = [
 export default function Seva() {
   const router = useRouter();
   const [selectedSeva, setSelectedSeva] = useState<string | null>(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleDonate = () => {
     if (!selectedSeva) {
-      Alert.alert('Select a Cause', 'Please select a seva option to continue.');
       return;
     }
 
-    const sevaOption = SEVA_OPTIONS.find(s => s.id === selectedSeva);
+    setShowConfirmation(true);
     
-    // Show success message
-    Alert.alert(
-      '🙏 Seva Complete',
-      `Thank you for contributing to ${sevaOption?.title}. Your devotion and generosity will help many.`,
-      [
-        {
-          text: 'Continue',
-          onPress: () => router.replace('/home'),
-        },
-      ]
-    );
+    setTimeout(() => {
+      router.replace('/home');
+    }, 2500);
   };
 
   const handleSkip = () => {
