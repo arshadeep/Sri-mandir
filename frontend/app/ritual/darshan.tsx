@@ -260,12 +260,10 @@ export default function Darshan() {
           ))}
         </View>
         
-        {!canContinue && (
-          <View style={styles.timerContainer}>
-            <Ionicons name="time-outline" size={18} color="#8B6F47" />
-            <Text style={styles.timer}>{timeLeft}s</Text>
-          </View>
-        )}
+        <View style={styles.timerContainer}>
+          <Ionicons name="time-outline" size={18} color="#8B6F47" />
+          <Text style={styles.timer}>{timeLeft}s</Text>
+        </View>
         
         {/* Offering Buttons */}
         <View style={styles.offeringsRow}>
