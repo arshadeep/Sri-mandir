@@ -154,14 +154,20 @@ export default function Darshan() {
     // Bell sound would play here
   };
 
-  const handleContinue = () => {
-    router.push({
-      pathname: '/ritual/wisdom',
-      params: { soundscape_on: params.soundscape_on }
-    });
-  };
+  const [isNavigating, setIsNavigating] = useState(false);
 
-  const canContinue = timeLeft === 0;
+  const handleContinue = () => {
+    if (isNavigating) return;
+    setIsNavigating(true);
+    
+    // Add 5 second delay before navigation
+    setTimeout(() => {
+      router.push({
+        pathname: '/ritual/wisdom',
+        params: { soundscape_on: params.soundscape_on }
+      });
+    }, 5000);
+  };
   const deity = DEITIES.find(d => d.id === preferences?.primary_deity) || DEITIES[0];
   const deityImages = DEITY_IMAGES[preferences?.primary_deity || 'ganesha'] || [];
 
