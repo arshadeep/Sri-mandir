@@ -96,7 +96,7 @@ export default function Breathing() {
     };
 
     breathingCycle();
-    breathingInterval = setInterval(breathingCycle, 8000);
+    breathingInterval = setInterval(breathingCycle, 9000);
 
     return () => {
       clearInterval(breathingInterval);
