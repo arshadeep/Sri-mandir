@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Animated, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Animated, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { playOmChant } from '../../utils/audioManager';
 import { useUserStore } from '../../store/userStore';
@@ -22,8 +22,10 @@ export default function Breathing() {
   const [timeLeft, setTimeLeft] = useState(BREATHING_DURATION);
   const [phase, setPhase] = useState<'inhale' | 'exhale'>('inhale');
   const [currentMessage, setCurrentMessage] = useState(0);
+  const [showCTA, setShowCTA] = useState(false);
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const ctaFadeAnim = useRef(new Animated.Value(0)).current;
 
   // Get today's deity
   const selectedDeities = preferences?.selected_deities || [preferences?.primary_deity] || ['ganesha'];
@@ -59,6 +61,20 @@ export default function Breathing() {
     };
   }, [router]);
 
+  // Show CTA after 15 seconds with animation
+  useEffect(() => {
+    const ctaTimer = setTimeout(() => {
+      setShowCTA(true);
+      Animated.timing(ctaFadeAnim, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }).start();
+    }, 15000);
+
+    return () => clearTimeout(ctaTimer);
+  }, []);
+
   useEffect(() => {
     const messageInterval = setInterval(() => {
       setCurrentMessage(prev => (prev + 1) % DEVOTIONAL_MESSAGES.length);
@@ -82,7 +98,6 @@ export default function Breathing() {
       }).start(() => {
         setPhase('exhale');
         
-        // Play sound only once per exhale
         if (!soundPlayed) {
           soundPlayed = true;
           playOmChant();
@@ -145,12 +160,21 @@ export default function Breathing() {
         
         <View style={styles.spacer} />
         
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={handleContinue}
-        >
-          <Text style={styles.buttonText}>{todaysDeity.name} Darshan →</Text>
-        </TouchableOpacity>
+        {showCTA ? (
+          <Animated.View style={{ opacity: ctaFadeAnim }}>
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={handleContinue}
+            >
+              <Text style={styles.buttonText}>{todaysDeity.name} Darshan →</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        ) : (
+          <View style={styles.loaderContainer}>
+            <ActivityIndicator size="small" color="#FF6B35" />
+            <Text style={styles.loaderText}>Preparing for darshan...</Text>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -216,6 +240,17 @@ const styles = StyleSheet.create({
   },
   spacer: {
     height: 40,
+  },
+  loaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 18,
+  },
+  loaderText: {
+    fontSize: 14,
+    color: '#8B6F47',
+    marginLeft: 12,
   },
   button: {
     backgroundColor: '#FF6B35',

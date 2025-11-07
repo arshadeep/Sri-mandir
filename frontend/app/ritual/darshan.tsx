@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, ScrollView, Dimensions, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, ScrollView, Dimensions, Animated, ActivityIndicator } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useUserStore } from '../../store/userStore';
 import { DEITY_IMAGES, DEITIES } from '../../utils/constants';
 import { playTempleBells, playBellSound } from '../../utils/audioManager';
+import { getTodaysDeity } from '../../utils/deityRotation';
 
-const DARSHAN_DURATION = 60; // 60 seconds
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 interface FlowerParticle {
   id: number;
@@ -29,37 +29,45 @@ export default function Darshan() {
   const router = useRouter();
   const params = useLocalSearchParams();
   const { preferences } = useUserStore();
-  const [timeLeft, setTimeLeft] = useState(DARSHAN_DURATION);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [flowers, setFlowers] = useState<FlowerParticle[]>([]);
   const [diyas, setDiyas] = useState<DiyaParticle[]>([]);
   const [flowerOffered, setFlowerOffered] = useState(false);
   const [diyaLit, setDiyaLit] = useState(false);
   const [bellRung, setBellRung] = useState(false);
+  const [showCTA, setShowCTA] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
   const flowerIdRef = useRef(0);
   const diyaIdRef = useRef(0);
+  const ctaFadeAnim = useRef(new Animated.Value(0)).current;
+
+  // Get today's deity
+  const selectedDeities = preferences?.selected_deities || [preferences?.primary_deity] || ['ganesha'];
+  const todaysDeityId = getTodaysDeity(selectedDeities);
+  const deity = DEITIES.find(d => d.id === todaysDeityId) || DEITIES[0];
+  const deityImages = DEITY_IMAGES[todaysDeityId] || DEITY_IMAGES.ganesha;
 
   useEffect(() => {
-    // Play temple bells when screen loads (soundscape on)
     playTempleBells();
-    
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+  }, []);
 
-    return () => clearInterval(timer);
+  // Show CTA after 5 seconds with animation
+  useEffect(() => {
+    const ctaTimer = setTimeout(() => {
+      setShowCTA(true);
+      Animated.timing(ctaFadeAnim, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }).start();
+    }, 5000);
+
+    return () => clearTimeout(ctaTimer);
   }, []);
 
   // Auto-scroll images every 15 seconds
   useEffect(() => {
-    const deityImages = DEITY_IMAGES[preferences?.primary_deity || 'ganesha'];
     if (!deityImages || deityImages.length <= 1) return;
 
     const interval = setInterval(() => {
@@ -74,15 +82,13 @@ export default function Darshan() {
     }, 15000);
 
     return () => clearInterval(interval);
-  }, [preferences]);
+  }, [deityImages]);
 
   const offerFlower = () => {
-    // Allow repeated offerings - don't disable button
     if (!flowerOffered) {
       setFlowerOffered(true);
     }
     
-    // Create multiple flowers falling
     for (let i = 0; i < 5; i++) {
       setTimeout(() => {
         const id = flowerIdRef.current++;
@@ -96,7 +102,6 @@ export default function Darshan() {
         
         setFlowers(prev => [...prev, newFlower]);
 
-        // Animate flower falling
         Animated.parallel([
           Animated.timing(top, {
             toValue: 200 + Math.random() * 150,
@@ -117,7 +122,6 @@ export default function Darshan() {
             }),
           ]),
         ]).start(() => {
-          // Remove flower after animation
           setFlowers(prev => prev.filter(f => f.id !== id));
         });
       }, i * 200);
@@ -125,12 +129,10 @@ export default function Darshan() {
   };
 
   const lightDiya = () => {
-    // Allow repeated offerings - don't disable button
     if (!diyaLit) {
       setDiyaLit(true);
     }
     
-    // Create diyas appearing at bottom
     for (let i = 0; i < 3; i++) {
       setTimeout(() => {
         const id = diyaIdRef.current++;
@@ -142,7 +144,6 @@ export default function Darshan() {
         
         setDiyas(prev => [...prev, newDiya]);
 
-        // Animate diya appearing
         Animated.parallel([
           Animated.timing(bottom, {
             toValue: 100,
@@ -161,20 +162,8 @@ export default function Darshan() {
 
   const ringBell = () => {
     setBellRung(true);
-    playBellSound(); // Play bell sound
+    playBellSound();
   };
-
-  const [showCTA, setShowCTA] = useState(false);
-  const [isNavigating, setIsNavigating] = useState(false);
-
-  // Show CTA after 5 seconds on screen load
-  useEffect(() => {
-    const ctaTimer = setTimeout(() => {
-      setShowCTA(true);
-    }, 5000);
-
-    return () => clearTimeout(ctaTimer);
-  }, []);
 
   const handleContinue = () => {
     if (isNavigating) return;
@@ -185,8 +174,6 @@ export default function Darshan() {
       params: { soundscape_on: params.soundscape_on }
     });
   };
-  const deity = DEITIES.find(d => d.id === preferences?.primary_deity) || DEITIES[0];
-  const deityImages = DEITY_IMAGES[preferences?.primary_deity || 'ganesha'] || [];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -332,17 +319,24 @@ export default function Darshan() {
           </TouchableOpacity>
         </View>
         
-        {showCTA && (
-          <TouchableOpacity 
-            style={[
-              styles.button,
-              isNavigating && styles.buttonDisabled
-            ]}
-            onPress={handleContinue}
-            disabled={isNavigating}
-          >
-            <Text style={styles.buttonText}>Time for Wisdom →</Text>
-          </TouchableOpacity>
+        {showCTA ? (
+          <Animated.View style={{ opacity: ctaFadeAnim }}>
+            <TouchableOpacity 
+              style={[
+                styles.button,
+                isNavigating && styles.buttonDisabled
+              ]}
+              onPress={handleContinue}
+              disabled={isNavigating}
+            >
+              <Text style={styles.buttonText}>Time for Wisdom →</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        ) : (
+          <View style={styles.loaderContainer}>
+            <ActivityIndicator size="small" color="#FF6B35" />
+            <Text style={styles.loaderText}>Absorbing divine presence...</Text>
+          </View>
         )}
       </View>
     </SafeAreaView>
@@ -425,18 +419,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 10,
   },
-  timerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  timer: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#8B6F47',
-    marginLeft: 6,
-  },
   offeringsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -475,6 +457,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
     padding: 2,
+  },
+  loaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 18,
+  },
+  loaderText: {
+    fontSize: 14,
+    color: '#8B6F47',
+    marginLeft: 12,
   },
   button: {
     backgroundColor: '#FF6B35',
