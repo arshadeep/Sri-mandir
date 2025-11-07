@@ -337,18 +337,18 @@ export default function Darshan() {
           </TouchableOpacity>
         </View>
         
-        <TouchableOpacity 
-          style={[
-            styles.button,
-            isNavigating && styles.buttonDisabled
-          ]}
-          onPress={handleContinue}
-          disabled={isNavigating}
-        >
-          <Text style={styles.buttonText}>
-            {isNavigating ? 'Preparing wisdom... 5s' : 'Time for Wisdom →'}
-          </Text>
-        </TouchableOpacity>
+        {showCTA && (
+          <TouchableOpacity 
+            style={[
+              styles.button,
+              isNavigating && styles.buttonDisabled
+            ]}
+            onPress={handleContinue}
+            disabled={isNavigating}
+          >
+            <Text style={styles.buttonText}>Time for Wisdom →</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </SafeAreaView>
   );
