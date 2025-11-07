@@ -44,8 +44,9 @@ export default function Breathing() {
         duration: 2000,
         useNativeDriver: true,
       }).start(() => {
-        // Exhale (2 seconds) - show Om
+        // Exhale (2 seconds) - show Om and play sound
         setPhase('exhale');
+        playOmChant(); // Play Om sound on exhale
         Animated.timing(fadeAnim, {
           toValue: 1,
           duration: 500,
