@@ -52,6 +52,15 @@ export default function Breathing() {
     };
   }, [router]);
 
+  // Change message every 6 seconds
+  useEffect(() => {
+    const messageInterval = setInterval(() => {
+      setCurrentMessage(prev => (prev + 1) % DEVOTIONAL_MESSAGES.length);
+    }, 6000);
+
+    return () => clearInterval(messageInterval);
+  }, []);
+
   useEffect(() => {
     // Breathing animation cycle (4 seconds per cycle)
     const breathingCycle = () => {
