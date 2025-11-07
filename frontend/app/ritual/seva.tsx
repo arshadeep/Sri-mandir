@@ -27,6 +27,7 @@ const SEVA_OPTIONS = [
 export default function Seva() {
   const router = useRouter();
   const [selectedSeva, setSelectedSeva] = useState<string | null>(null);
+  const [customAmount, setCustomAmount] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleDonate = () => {
@@ -40,6 +41,8 @@ export default function Seva() {
       router.replace('/home');
     }, 2500);
   };
+  
+  const amount = customAmount ? `₹${customAmount}` : '₹1';
 
   const handleSkip = () => {
     router.replace('/home');
