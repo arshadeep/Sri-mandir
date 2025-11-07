@@ -4,6 +4,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useUserStore } from '../../store/userStore';
 import { DEITY_IMAGES, DEITIES } from '../../utils/constants';
+import { playTempleBells, playBellSound } from '../../utils/audioManager';
 
 const DARSHAN_DURATION = 60; // 60 seconds
 const { width, height } = Dimensions.get('window');
