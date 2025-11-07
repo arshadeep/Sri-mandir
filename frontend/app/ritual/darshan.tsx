@@ -328,13 +328,13 @@ export default function Darshan() {
         <TouchableOpacity 
           style={[
             styles.button,
-            !canContinue && styles.buttonDisabled
+            isNavigating && styles.buttonDisabled
           ]}
           onPress={handleContinue}
-          disabled={!canContinue}
+          disabled={isNavigating}
         >
           <Text style={styles.buttonText}>
-            {canContinue ? 'Time for Wisdom →' : 'Offer your devotion...'}
+            {isNavigating ? 'Preparing wisdom... 5s' : 'Time for Wisdom →'}
           </Text>
         </TouchableOpacity>
       </View>
