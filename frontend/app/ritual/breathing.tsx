@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Animated, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { playOmChant } from '../../utils/audioManager';
+import { playOmChant, stopOmChant } from '../../utils/audioManager';
 import { useUserStore } from '../../store/userStore';
 import { DEITIES } from '../../utils/constants';
 import { getTodaysDeity } from '../../utils/deityRotation';
