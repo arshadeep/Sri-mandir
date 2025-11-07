@@ -32,9 +32,9 @@ export const DEITY_IMAGES: { [key: string]: string[] } = {
     'https://images.pexels.com/photos/34588458/pexels-photo-34588458.jpeg',
   ],
   krishna: [
-    'https://images.unsplash.com/photo-1715769244609-4569f087111f',
-    'https://images.unsplash.com/photo-1641730259879-ad98e7db7bcb',
-    'https://images.pexels.com/photos/2462023/pexels-photo-2462023.jpeg',
+    'https://images.unsplash.com/photo-1629639083646-9120347a4ff8',
+    'https://images.unsplash.com/photo-1758300552382-271516e8569e',
+    'https://images.pexels.com/photos/23953117/pexels-photo-23953117.jpeg',
   ],
 };
 
