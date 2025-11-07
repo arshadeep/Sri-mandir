@@ -48,8 +48,9 @@ export default function ReminderSetup() {
   const handleSaveAndContinue = async () => {
     setLoading(true);
     try {
-      // Create user
-      const userData = await createUser('User');
+      // Create user with name from params
+      const userName = (params.user_name as string) || 'User';
+      const userData = await createUser(userName);
       console.log('User created:', userData);
       
       // Parse selected deities
