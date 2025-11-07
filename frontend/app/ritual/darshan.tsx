@@ -125,7 +125,10 @@ export default function Darshan() {
   };
 
   const lightDiya = () => {
-    setDiyaLit(true);
+    // Allow repeated offerings - don't disable button
+    if (!diyaLit) {
+      setDiyaLit(true);
+    }
     
     // Create diyas appearing at bottom
     for (let i = 0; i < 3; i++) {
