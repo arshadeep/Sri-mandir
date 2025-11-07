@@ -24,7 +24,8 @@ export default function DeitySelection() {
     router.push({
       pathname: '/onboarding/reminder-setup',
       params: { 
-        selected_deities: JSON.stringify(selectedDeities)
+        selected_deities: JSON.stringify(selectedDeities),
+        user_name: params.user_name
       }
     });
   };
