@@ -35,47 +35,18 @@ export default function DeitySelection() {
         <View style={styles.content}>
           <Ionicons name="flower-outline" size={48} color="#FF6B35" style={styles.icon} />
           
-          <Text style={styles.title}>Choose Your Deity</Text>
-          <Text style={styles.subtitle}>Select the deity you feel most connected to</Text>
+          <Text style={styles.title}>Choose Your Favorite Gods</Text>
+          <Text style={styles.subtitle}>Select one or more deities for your daily darshan</Text>
           
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Primary Deity</Text>
             {DEITIES.map((deity) => (
               <TouchableOpacity
                 key={deity.id}
                 style={[
                   styles.deityCard,
-                  selectedDeity === deity.id && styles.deityCardSelected
+                  selectedDeities.includes(deity.id) && styles.deityCardSelected
                 ]}
-                onPress={() => setSelectedDeity(deity.id)}
-              >
-                <View style={styles.deityInfo}>
-                  <Text style={styles.deityName}>{deity.name}</Text>
-                  <Text style={styles.deityNameHindi}>{deity.nameHindi}</Text>
-                </View>
-                <View style={[
-                  styles.radio,
-                  selectedDeity === deity.id && styles.radioSelected
-                ]}>
-                  {selectedDeity === deity.id && (
-                    <View style={styles.radioInner} />
-                  )}
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
-          
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Secondary Deities (Optional)</Text>
-            <Text style={styles.helperText}>Select up to 3 additional deities</Text>
-            {DEITIES.filter(d => d.id !== selectedDeity).map((deity) => (
-              <TouchableOpacity
-                key={deity.id}
-                style={[
-                  styles.deityCard,
-                  secondaryDeities.includes(deity.id) && styles.deityCardSecondary
-                ]}
-                onPress={() => toggleSecondaryDeity(deity.id)}
+                onPress={() => toggleDeity(deity.id)}
               >
                 <View style={styles.deityInfo}>
                   <Text style={styles.deityName}>{deity.name}</Text>
@@ -83,9 +54,9 @@ export default function DeitySelection() {
                 </View>
                 <View style={[
                   styles.checkbox,
-                  secondaryDeities.includes(deity.id) && styles.checkboxSelected
+                  selectedDeities.includes(deity.id) && styles.checkboxSelected
                 ]}>
-                  {secondaryDeities.includes(deity.id) && (
+                  {selectedDeities.includes(deity.id) && (
                     <Ionicons name="checkmark" size={16} color="#FFFFFF" />
                   )}
                 </View>
@@ -93,13 +64,19 @@ export default function DeitySelection() {
             ))}
           </View>
           
+          {selectedDeities.length > 0 && (
+            <Text style={styles.helperText}>
+              {selectedDeities.length} {selectedDeities.length === 1 ? 'deity' : 'deities'} selected - Daily rotation will show one deity each day
+            </Text>
+          )}
+          
           <TouchableOpacity 
             style={[
               styles.button,
-              !selectedDeity && styles.buttonDisabled
+              selectedDeities.length === 0 && styles.buttonDisabled
             ]}
             onPress={handleContinue}
-            disabled={!selectedDeity}
+            disabled={selectedDeities.length === 0}
           >
             <Text style={styles.buttonText}>Continue</Text>
           </TouchableOpacity>
