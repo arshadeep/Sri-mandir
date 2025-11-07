@@ -38,13 +38,25 @@ export default function Breathing() {
         duration: 2000,
         useNativeDriver: true,
       }).start(() => {
-        // Exhale (2 seconds)
+        // Exhale (2 seconds) - show Om
         setPhase('exhale');
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }).start();
+        
         Animated.timing(scaleAnim, {
           toValue: 1,
           duration: 2000,
           useNativeDriver: true,
-        }).start();
+        }).start(() => {
+          Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true,
+          }).start();
+        });
       });
     };
 
@@ -54,9 +66,13 @@ export default function Breathing() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleChant = () => {
+    setChantCount(prev => prev + 1);
+  };
+
   const handleContinue = () => {
     router.push({
-      pathname: '/ritual/darshan',
+      pathname: '/ritual/puja',
       params: { soundscape_on: params.soundscape_on }
     });
   };
@@ -66,9 +82,9 @@ export default function Breathing() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Breathe & Center</Text>
+        <Text style={styles.title}>Breathe & Chant "ॐ"</Text>
         <Text style={styles.subtitle}>
-          Let's take a few breaths together to begin your morning with calm and clarity.
+          Let's begin with calm breathing. On each exhale, softly chant "ॐ".
         </Text>
         
         <View style={styles.breathingContainer}>
@@ -78,12 +94,24 @@ export default function Breathing() {
               { transform: [{ scale: scaleAnim }] }
             ]}
           />
+          <Animated.Text style={[styles.omSymbol, { opacity: fadeAnim }]}>
+            ॐ
+          </Animated.Text>
           <Text style={styles.phaseText}>
-            {phase === 'inhale' ? 'Inhale...' : 'Exhale...'}
+            {phase === 'inhale' ? 'Inhale...' : 'Exhale... "ॐ"'}
           </Text>
         </View>
         
-        <Text style={styles.timer}>{timeLeft}s</Text>
+        <TouchableOpacity 
+          style={styles.chantButton}
+          onPress={handleChant}
+        >
+          <Ionicons name="mic-outline" size={24} color="#FF6B35" />
+          <Text style={styles.chantButtonText}>Tap to Chant</Text>
+          <Text style={styles.chantCount}>Count: {chantCount}</Text>
+        </TouchableOpacity>
+        
+        <Text style={styles.timer}>{timeLeft}s remaining</Text>
         
         <View style={styles.spacer} />
         
@@ -139,15 +167,46 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     backgroundColor: '#FF6B35',
     opacity: 0.3,
+    position: 'absolute',
+  },
+  omSymbol: {
+    fontSize: 72,
+    color: '#FF6B35',
+    fontWeight: '700',
+    position: 'absolute',
   },
   phaseText: {
-    marginTop: 32,
+    marginTop: 160,
     fontSize: 24,
     fontWeight: '600',
     color: '#FF6B35',
   },
+  chantButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFF3ED',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 20,
+    marginTop: 24,
+    borderWidth: 2,
+    borderColor: '#FFD4B8',
+    alignSelf: 'center',
+  },
+  chantButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FF6B35',
+    marginLeft: 8,
+    marginRight: 12,
+  },
+  chantCount: {
+    fontSize: 14,
+    color: '#8B6F47',
+  },
   timer: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '600',
     color: '#8B6F47',
     textAlign: 'center',
