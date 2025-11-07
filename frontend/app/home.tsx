@@ -67,7 +67,7 @@ export default function Home() {
             </TouchableOpacity>
           </View>
           
-          {/* Primary Deity Card */}
+          {/* Today's Deity Card */}
           <View style={styles.deityCard}>
             <Image 
               source={{ uri: deityImage }}
@@ -75,21 +75,19 @@ export default function Home() {
             />
             <View style={styles.deityOverlay}>
               <View style={styles.deityInfo}>
-                <Text style={styles.deityName}>{primaryDeity?.name}</Text>
-                <Text style={styles.deityNameHindi}>{primaryDeity?.nameHindi}</Text>
+                <Text style={styles.deityName}>{todaysDeity?.name}</Text>
+                <Text style={styles.deityNameHindi}>{todaysDeity?.nameHindi}</Text>
               </View>
             </View>
           </View>
           
-          {/* Weekday Message */}
-          {weekdayInfo?.deity && preferences?.secondary_deities?.includes(weekdayInfo.deity) && (
-            <View style={styles.messageCard}>
-              <Ionicons name="calendar-outline" size={20} color="#FF6B35" />
-              <Text style={styles.messageText}>
-                Today is a day of devotion to {DEITIES.find(d => d.id === weekdayInfo.deity)?.name} ({DEITIES.find(d => d.id === weekdayInfo.deity)?.nameHindi})
-              </Text>
-            </View>
-          )}
+          {/* Today's Devotion Message */}
+          <View style={styles.messageCard}>
+            <Ionicons name="calendar-outline" size={20} color="#FF6B35" />
+            <Text style={styles.messageText}>
+              Today is a day of devotion to {todaysDeity?.name} ({todaysDeity?.nameHindi})
+            </Text>
+          </View>
           
           {/* Begin Darshan Button */}
           <TouchableOpacity 
