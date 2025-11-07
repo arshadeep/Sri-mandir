@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Animated } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Animated, TouchableOpacity } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { playOmChant } from '../../utils/audioManager';
+import { useUserStore } from '../../store/userStore';
+import { DEITIES } from '../../utils/constants';
+import { getTodaysDeity } from '../../utils/deityRotation';
 
 const BREATHING_DURATION = 15; // 15 seconds
 
@@ -15,12 +18,17 @@ const DEVOTIONAL_MESSAGES = [
 
 export default function Breathing() {
   const router = useRouter();
-  const params = useLocalSearchParams();
+  const { preferences } = useUserStore();
   const [timeLeft, setTimeLeft] = useState(BREATHING_DURATION);
   const [phase, setPhase] = useState<'inhale' | 'exhale'>('inhale');
   const [currentMessage, setCurrentMessage] = useState(0);
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  // Get today's deity
+  const selectedDeities = preferences?.selected_deities || [preferences?.primary_deity] || ['ganesha'];
+  const todaysDeityId = getTodaysDeity(selectedDeities);
+  const todaysDeity = DEITIES.find(d => d.id === todaysDeityId) || DEITIES[0];
 
   useEffect(() => {
     let navigationDone = false;
@@ -60,15 +68,26 @@ export default function Breathing() {
   }, []);
 
   useEffect(() => {
+    let breathingInterval: NodeJS.Timeout;
+    let soundPlayed = false;
+    
     const breathingCycle = () => {
       setPhase('inhale');
+      soundPlayed = false;
+      
       Animated.timing(scaleAnim, {
         toValue: 1.5,
         duration: 2000,
         useNativeDriver: true,
       }).start(() => {
         setPhase('exhale');
-        playOmChant();
+        
+        // Play sound only once per exhale
+        if (!soundPlayed) {
+          soundPlayed = true;
+          playOmChant();
+        }
+        
         Animated.timing(fadeAnim, {
           toValue: 1,
           duration: 500,
@@ -90,10 +109,14 @@ export default function Breathing() {
     };
 
     breathingCycle();
-    const interval = setInterval(breathingCycle, 4000);
+    breathingInterval = setInterval(breathingCycle, 4000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(breathingInterval);
   }, []);
+
+  const handleContinue = () => {
+    router.replace('/ritual/darshan');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -119,6 +142,15 @@ export default function Breathing() {
         </View>
         
         <Text style={styles.devotionalMessage}>{DEVOTIONAL_MESSAGES[currentMessage]}</Text>
+        
+        <View style={styles.spacer} />
+        
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={handleContinue}
+        >
+          <Text style={styles.buttonText}>{todaysDeity.name} Darshan →</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -181,5 +213,24 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     lineHeight: 24,
     paddingHorizontal: 16,
+  },
+  spacer: {
+    height: 40,
+  },
+  button: {
+    backgroundColor: '#FF6B35',
+    paddingVertical: 18,
+    borderRadius: 28,
+    alignItems: 'center',
+    shadowColor: '#FF6B35',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '700',
   },
 });
