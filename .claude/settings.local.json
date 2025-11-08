@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(export PATH=\"$PATH:/c/Users/arsha/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin\":*)",
+      "Bash(gcloud logging read:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

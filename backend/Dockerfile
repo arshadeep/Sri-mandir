@@ -7,6 +7,8 @@ WORKDIR /app
 # Install system dependencies for MongoDB SSL/TLS
 RUN apt-get update && apt-get install -y \
     ca-certificates \
+    openssl \
+    libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file

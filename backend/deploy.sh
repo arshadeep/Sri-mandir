@@ -10,8 +10,8 @@ REGION="us-central1"
 IMAGE_NAME="gcr.io/${PROJECT_ID}/${SERVICE_NAME}"
 
 #mongodb
-MONGO_URL=mongodb+srv://arshu111as_db_user:AXm8XfUdiG3AH0DP@cluster0.0fslpnp.mongodb.net/
-DB_NAME=sri_mandir
+MONGO_URL="mongodb+srv://arshu111as_db_user:AXm8XfUdiG3AH0DP@cluster0.0fslpnp.mongodb.net/?retryWrites=true&w=majority"
+DB_NAME="sri_mandir"
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -42,13 +42,14 @@ gcloud run deploy ${SERVICE_NAME} \
   --platform managed \
   --region ${REGION} \
   --allow-unauthenticated \
-  --set-env-vars MONGO_URL="${MONGO_URL}",DB_NAME="${DB_NAME}" \
+  --set-env-vars "MONGO_URL=${MONGO_URL},DB_NAME=${DB_NAME}" \
   --min-instances 0 \
   --max-instances 10 \
   --memory 512Mi \
   --cpu 1 \
   --timeout 300 \
-  --port 8080
+  --port 8080 \
+  --cpu-boost
 
 echo -e "${GREEN}Deployment complete!${NC}"
 echo -e "${YELLOW}Service URL:${NC}"
