@@ -1,0 +1,82 @@
+diff --git a/model.patch b/model.patch
+index 0dac0e9..e69de29 100644
+--- a/model.patch
++++ b/model.patch
+@@ -1,77 +0,0 @@
+-diff --git a/frontend/app/ritual/seva.tsx b/frontend/app/ritual/seva.tsx
+-index a3c1d6c..ac2a2c7 100644
+---- a/frontend/app/ritual/seva.tsx
+-+++ b/frontend/app/ritual/seva.tsx
+-@@ -148,10 +148,12 @@ const styles = StyleSheet.create({
+-     flex: 1,
+-     backgroundColor: '#FFF8F0',
+-   },
+--  content: {
+-+  scrollView: {
+-     flex: 1,
+-+  },
+-+  scrollContent: {
+-     padding: 24,
+--    paddingTop: 40,
+-+    paddingBottom: 40,
+-   },
+-   iconContainer: {
+-     alignItems: 'center',
+-diff --git a/model.patch b/model.patch
+-index 53f4057..e69de29 100644
+---- a/model.patch
+-+++ b/model.patch
+-@@ -1,53 +0,0 @@
+--diff --git a/frontend/app/home.tsx b/frontend/app/home.tsx
+--index 77ff6fd..40635ad 100644
+----- a/frontend/app/home.tsx
+--+++ b/frontend/app/home.tsx
+--@@ -59,12 +59,6 @@ export default function Home() {
+--               <Text style={styles.greeting}>Good Morning</Text>
+--               <Text style={styles.userName}>{user?.name || 'Devotee'}</Text>
+--             </View>
+---            <TouchableOpacity 
+---              style={styles.iconButton}
+---              onPress={() => router.push('/settings/index')}
+---            >
+---              <Ionicons name="settings-outline" size={24} color="#2C1810" />
+---            </TouchableOpacity>
+--           </View>
+--           
+--           {/* Today's Deity Card */}
+--diff --git a/model.patch b/model.patch
+--index e3b28c7..e69de29 100644
+----- a/model.patch
+--+++ b/model.patch
+--@@ -1,31 +0,0 @@
+---diff --git a/frontend/app/ritual/seva.tsx b/frontend/app/ritual/seva.tsx
+---index 9846279..53e3720 100644
+------ a/frontend/app/ritual/seva.tsx
+---+++ b/frontend/app/ritual/seva.tsx
+---@@ -108,7 +108,7 @@ export default function Seva() {
+---             disabled={!selectedSeva}
+---           >
+---             <Ionicons name="heart" size={20} color="#FFFFFF" style={styles.buttonIcon} />
+----            <Text style={styles.donateButtonText}>Donate ₹1</Text>
+---+            <Text style={styles.donateButtonText}>Contribute ₹1</Text>
+---           </TouchableOpacity>
+---           
+---           <TouchableOpacity 
+---diff --git a/model.patch b/model.patch
+---index c145024..e69de29 100644
+------ a/model.patch
+---+++ b/model.patch
+---@@ -1,13 +0,0 @@
+----diff --git a/frontend/app/home.tsx b/frontend/app/home.tsx
+----index b1fdc7c..1c07bea 100644
+------- a/frontend/app/home.tsx
+----+++ b/frontend/app/home.tsx
+----@@ -89,7 +89,7 @@ export default function Home() {
+----           {/* Begin Darshan Button */}
+----           <TouchableOpacity 
+----             style={styles.primaryButton}
+-----            onPress={() => router.push('/ritual/prepare')}
+----+            onPress={() => router.push('/ritual/breathing')}
+----           >
+----             <Ionicons name="flower" size={24} color="#FFFFFF" style={styles.buttonIcon} />
+----             <Text style={styles.primaryButtonText}>Begin Morning Darshan</Text>
