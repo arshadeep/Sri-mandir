@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     if (!streak) {
       // Create new streak
-      streak = {
+      const newStreak = {
         user_id: validatedData.user_id,
         current_streak: 0,
         longest_streak: 0,
@@ -30,7 +30,11 @@ export async function POST(request: NextRequest) {
         grace_used_in_window: false,
         window_start_date: null,
       };
-      await streaksCollection.insertOne(streak);
+      await streaksCollection.insertOne(newStreak);
+      streak = await streaksCollection.findOne({ user_id: validatedData.user_id });
+      if (!streak) {
+        throw new Error('Failed to create streak');
+      }
     }
 
     const today = validatedData.date;
