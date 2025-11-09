@@ -40,6 +40,7 @@ export default function Darshan() {
   const scrollViewRef = useRef<ScrollView>(null);
   const flowerIdRef = useRef(0);
   const diyaIdRef = useRef(0);
+  const buttonGlowAnim = useRef(new Animated.Value(0)).current;
 
   // Get today's deity
   const selectedDeities = preferences?.selected_deities || [preferences?.primary_deity] || ['ganesha'];
@@ -82,6 +83,28 @@ export default function Darshan() {
 
     return () => clearInterval(interval);
   }, [deityImages]);
+
+  // Button prominence animation when ready
+  useEffect(() => {
+    if (isReady) {
+      const glowLoop = () => {
+        Animated.sequence([
+          Animated.timing(buttonGlowAnim, {
+            toValue: 0.4,
+            duration: 1200,
+            useNativeDriver: false,
+          }),
+          Animated.timing(buttonGlowAnim, {
+            toValue: 0.2,
+            duration: 1200,
+            useNativeDriver: false,
+          }),
+        ]).start(() => glowLoop());
+      };
+
+      glowLoop();
+    }
+  }, [isReady]);
 
   const offerFlower = () => {
     if (!flowerOffered) {
@@ -317,21 +340,39 @@ export default function Darshan() {
           </TouchableOpacity>
         </View>
         
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[
             styles.liquidButton,
-            !isReady && styles.liquidButtonDisabled
+            !isReady && styles.liquidButtonDisabled,
+            isReady && {
+              shadowColor: '#FF6B35',
+              shadowOffset: { width: 0, height: 6 },
+              shadowOpacity: 0.5,
+              shadowRadius: 12,
+              elevation: 8,
+            }
           ]}
           onPress={handleContinue}
           disabled={!isReady}
         >
-          <View 
+          {/* Animated glow overlay when ready */}
+          {isReady && (
+            <Animated.View
+              style={[
+                styles.buttonGlow,
+                {
+                  opacity: buttonGlowAnim,
+                },
+              ]}
+            />
+          )}
+          <View
             style={[
               styles.liquidFill,
               { height: `${fillPercentage}%` }
             ]}
           />
-          <Text style={styles.buttonText}>
+          <Text style={[styles.buttonText, isReady && styles.buttonTextReady]}>
             {isReady ? 'Time for Wisdom →' : 'Receiving Blessings...'}
           </Text>
         </TouchableOpacity>
@@ -474,6 +515,16 @@ const styles = StyleSheet.create({
   liquidButtonDisabled: {
     opacity: 0.9,
   },
+  buttonGlow: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#FF8C5A',
+    opacity: 0.5,
+    zIndex: 0,
+  },
   liquidFill: {
     position: 'absolute',
     bottom: 0,
@@ -487,5 +538,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     zIndex: 1,
+  },
+  buttonTextReady: {
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
   },
 });
