@@ -139,6 +139,18 @@ export default function ReminderSetup() {
                 </TouchableOpacity>
               ))}
             </View>
+
+            {/* Helpful nudge message */}
+            <View style={styles.nudgeContainer}>
+              <Ionicons name="bulb-outline" size={20} color="#FF6B35" />
+              <View style={styles.nudgeTextContainer}>
+                <Text style={styles.nudgeText}>
+                  <Text style={styles.nudgeBold}>Tip: </Text>
+                  We recommend setting your darshan within one hour of waking up for the best spiritual experience.{' '}
+                  <Text style={styles.nudgeHighlight}>Your reminder is set for {reminderTime}</Text>
+                </Text>
+              </View>
+            </View>
           </View>
           
           <View style={styles.section}>
@@ -243,6 +255,33 @@ const styles = StyleSheet.create({
     color: '#6B4423',
   },
   timeTextSelected: {
+    color: '#FF6B35',
+  },
+  nudgeContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    backgroundColor: '#FFF9F5',
+    padding: 12,
+    borderRadius: 12,
+    marginTop: 16,
+    borderLeftWidth: 3,
+    borderLeftColor: '#FF6B35',
+  },
+  nudgeTextContainer: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  nudgeText: {
+    fontSize: 14,
+    color: '#6B4423',
+    lineHeight: 20,
+  },
+  nudgeBold: {
+    fontWeight: '700',
+    color: '#2C1810',
+  },
+  nudgeHighlight: {
+    fontWeight: '600',
     color: '#FF6B35',
   },
   toggleRow: {
