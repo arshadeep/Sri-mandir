@@ -8,11 +8,11 @@ import { updatePreferences } from '../../services/api';
 import { DEITIES } from '../../utils/constants';
 
 const WEEKDAY_MAP: { [key: string]: string } = {
-  'shiva': 'Monday',
-  'hanuman': 'Tuesday',
-  'ganesha': 'Wednesday',
-  'durga': 'Friday',
-  'krishna': 'Sunday',
+  'shiva': 'सोमवार',
+  'hanuman': 'मंगलवार',
+  'ganesha': 'बुधवार',
+  'durga': 'शुक्रवार',
+  'krishna': 'रविवार',
 };
 
 export default function DeityPreferences() {
@@ -31,14 +31,14 @@ export default function DeityPreferences() {
       if (secondaryDeities.length < 3) {
         setSecondaryDeities([...secondaryDeities, deityId]);
       } else {
-        Alert.alert('Limit Reached', 'You can select up to 3 secondary deities.');
+        Alert.alert('सीमा पूर्ण', 'आप 3 द्वितीयक देवताओं तक चयन कर सकते हैं।');
       }
     }
   };
 
   const handleSave = async () => {
     if (!primaryDeity) {
-      Alert.alert('Selection Required', 'Please select your primary deity.');
+      Alert.alert('चयन आवश्यक', 'कृपया अपना प्राथमिक देवता चुनें।');
       return;
     }
 
@@ -56,12 +56,12 @@ export default function DeityPreferences() {
         setPreferences(updatedPrefs);
         await AsyncStorage.setItem('preferences_data', JSON.stringify(updatedPrefs));
         
-        Alert.alert('Success', 'Deity preferences updated successfully');
+        Alert.alert('सफलता', 'देवता प्राथमिकताएं सफलतापूर्वक अपडेट हुई।');
         router.back();
       }
     } catch (error) {
       console.error('Error updating preferences:', error);
-      Alert.alert('Error', 'Failed to update preferences. Please try again.');
+      Alert.alert('त्रुटि', 'प्राथमिकताएं अपडेट करने में विफल। कृपया पुनः प्रयास करें।');
     } finally {
       setLoading(false);
     }
@@ -73,14 +73,14 @@ export default function DeityPreferences() {
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="#2C1810" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Deity Preferences</Text>
+        <Text style={styles.headerTitle}>देवता प्राथमिकताएं</Text>
         <View style={styles.backButton} />
       </View>
       
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Primary Deity</Text>
+            <Text style={styles.sectionTitle}>प्राथमिक देवता</Text>
             {DEITIES.map((deity) => (
               <TouchableOpacity
                 key={deity.id}
@@ -107,8 +107,8 @@ export default function DeityPreferences() {
           </View>
           
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Secondary Deities (Optional)</Text>
-            <Text style={styles.helperText}>Select up to 3 additional deities</Text>
+            <Text style={styles.sectionTitle}>द्वितीयक देवता (वैकल्पिक)</Text>
+            <Text style={styles.helperText}>3 अतिरिक्त देवताओं तक चुनें</Text>
             {DEITIES.filter(d => d.id !== primaryDeity).map((deity) => (
               <TouchableOpacity
                 key={deity.id}
@@ -136,8 +136,8 @@ export default function DeityPreferences() {
           
           {secondaryDeities.length > 0 && (
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Weekday Devotion Mapping</Text>
-              <Text style={styles.helperText}>Your selected deities and their special days</Text>
+              <Text style={styles.sectionTitle}>सप्ताह के दिन भक्ति मानचित्रण</Text>
+              <Text style={styles.helperText}>आपके चुने हुए देवता और उनके विशेष दिन</Text>
               {[primaryDeity, ...secondaryDeities].map((deityId) => {
                 const deity = DEITIES.find(d => d.id === deityId);
                 const weekday = WEEKDAY_MAP[deityId];
@@ -156,7 +156,7 @@ export default function DeityPreferences() {
             onPress={handleSave}
             disabled={loading}
           >
-            <Text style={styles.buttonText}>Save Preferences</Text>
+            <Text style={styles.buttonText}>प्राथमिकताएं सहेजें</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

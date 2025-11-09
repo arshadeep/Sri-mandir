@@ -291,7 +291,7 @@ export default function Darshan() {
             onPress={offerFlower}
           >
             <Text style={styles.offeringEmoji}>🌸</Text>
-            <Text style={styles.offeringText}>Offer Flower</Text>
+            <Text style={styles.offeringText}>फूल अर्पित करें</Text>
             {flowerOffered && (
               <View style={styles.checkBadge}>
                 <Ionicons name="checkmark" size={14} color="#4CAF50" />
@@ -311,7 +311,7 @@ export default function Darshan() {
               size={32} 
               color={diyaLit ? "#FF6B35" : "#FFB88C"} 
             />
-            <Text style={styles.offeringText}>Light Diya</Text>
+            <Text style={styles.offeringText}>दीया जलाएं</Text>
             {diyaLit && (
               <View style={styles.checkBadge}>
                 <Ionicons name="checkmark" size={14} color="#4CAF50" />
@@ -331,7 +331,7 @@ export default function Darshan() {
               size={32} 
               color={bellRung ? "#FFD700" : "#FFE4B5"} 
             />
-            <Text style={styles.offeringText}>Ring Bell</Text>
+            <Text style={styles.offeringText}>घंटी बजाएं</Text>
             {bellRung && (
               <View style={styles.checkBadge}>
                 <Ionicons name="checkmark" size={14} color="#4CAF50" />
@@ -373,7 +373,7 @@ export default function Darshan() {
             ]}
           />
           <Text style={[styles.buttonText, isReady && styles.buttonTextReady]}>
-            {isReady ? 'Time for Wisdom →' : 'Receiving Blessings...'}
+            {isReady ? 'आज का ज्ञान →' : 'आशीर्वाद प्राप्त कर रहे हैं...'}
           </Text>
         </TouchableOpacity>
       </View>

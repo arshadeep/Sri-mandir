@@ -57,9 +57,9 @@ export default function Closure() {
       if (response.milestone) {
         setTimeout(() => {
           Alert.alert(
-            '🌼 Milestone Reached! 🌼',
-            `Congratulations! You've completed ${response.streak} days of morning darshan. Consistency strengthens devotion.`,
-            [{ text: 'Continue', onPress: () => router.replace('/home') }]
+            '🌼 मील का पत्थर पूरा! 🌼',
+            `बधाई हो! आपने ${response.streak} दिन सुबह का दर्शन पूरा किया है। निरंतरता भक्ति को मजबूत करती है।`,
+            [{ text: 'जारी रखें', onPress: () => router.replace('/home') }]
           );
         }, 500);
       }
@@ -86,15 +86,15 @@ export default function Closure() {
         </Animated.View>
         
         <Animated.Text style={[styles.title, { opacity: fadeAnim }]}>
-          Ritual Complete
+          अनुष्ठान पूर्ण
         </Animated.Text>
-        
+
         <Animated.Text style={[styles.subtitle, { opacity: fadeAnim }]}>
-          Your morning darshan is complete.
+          आपका सुबह का दर्शन पूर्ण हुआ।
         </Animated.Text>
-        
+
         <Animated.Text style={[styles.blessing, { opacity: fadeAnim }]}>
-          May divine grace guide and protect you throughout your day.
+          दिव्य कृपा आपको दिन भर मार्गदर्शन और सुरक्षा प्रदान करे।
         </Animated.Text>
         
         <View style={styles.spacer} />
@@ -104,7 +104,7 @@ export default function Closure() {
             style={styles.button}
             onPress={handleDone}
           >
-            <Text style={styles.buttonText}>Done</Text>
+            <Text style={styles.buttonText}>पूर्ण</Text>
           </TouchableOpacity>
         </Animated.View>
       </View>

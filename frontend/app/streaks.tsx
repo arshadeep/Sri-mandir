@@ -63,7 +63,7 @@ export default function Streaks() {
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="#2C1810" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Your Streaks</Text>
+        <Text style={styles.headerTitle}>आपकी लकीर</Text>
         <View style={styles.backButton} />
       </View>
       
@@ -74,30 +74,30 @@ export default function Streaks() {
             <View style={styles.statCard}>
               <Ionicons name="flame" size={48} color="#FF6B35" />
               <Text style={styles.statNumber}>{streak?.current_streak || 0}</Text>
-              <Text style={styles.statLabel}>Current Streak</Text>
+              <Text style={styles.statLabel}>वर्तमान लकीर</Text>
             </View>
             
             <View style={styles.statCard}>
               <Ionicons name="trophy" size={48} color="#FFB300" />
               <Text style={styles.statNumber}>{streak?.longest_streak || 0}</Text>
-              <Text style={styles.statLabel}>Longest Streak</Text>
+              <Text style={styles.statLabel}>सबसे लंबी लकीर</Text>
             </View>
           </View>
           
           {/* Next Milestone */}
           <View style={styles.milestoneCard}>
-            <Text style={styles.milestoneTitle}>Next Milestone</Text>
+            <Text style={styles.milestoneTitle}>अगला मील का पत्थर</Text>
             <View style={styles.milestoneProgress}>
-              <Text style={styles.milestoneText}>Day {getNextMilestone()}</Text>
+              <Text style={styles.milestoneText}>दिन {getNextMilestone()}</Text>
               <Text style={styles.milestoneSubtext}>
-                {getNextMilestone() - (streak?.current_streak || 0)} days to go
+                {getNextMilestone() - (streak?.current_streak || 0)} दिन बाकी
               </Text>
             </View>
           </View>
           
           {/* Calendar */}
           <View style={styles.calendarSection}>
-            <Text style={styles.sectionTitle}>Your Devotion Journey</Text>
+            <Text style={styles.sectionTitle}>आपकी भक्ति यात्रा</Text>
             <Calendar
               markedDates={markedDates}
               theme={{
@@ -125,7 +125,7 @@ export default function Streaks() {
           </View>
           
           <Text style={styles.motivationText}>
-            Consistency strengthens devotion. Keep going!
+            निरंतरता भक्ति को मजबूत करती है। जारी रखें!
           </Text>
         </View>
       </ScrollView>

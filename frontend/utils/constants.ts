@@ -40,6 +40,6 @@ export const DEITY_IMAGES: { [key: string]: string[] } = {
 
 export const TEMPLE_IMAGE = 'https://customer-assets.emergentagent.com/job_srimandir/artifacts/6ayp8end_WhatsApp%20Image%202025-11-07%20at%2022.17.05_ccc76176.jpg';
 
-export const WEEKDAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+export const WEEKDAY_NAMES = ['सोमवार', 'मंगलवार', 'बुधवार', 'गुरुवार', 'शुक्रवार', 'शनिवार', 'रविवार'];
 
 export const MILESTONES = [3, 7, 21, 40];

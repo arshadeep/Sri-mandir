@@ -59,12 +59,12 @@ export default function ReminderSettings() {
         setPreferences(updatedPrefs);
         await AsyncStorage.setItem('preferences_data', JSON.stringify(updatedPrefs));
         
-        Alert.alert('Success', 'Reminder settings updated successfully');
+        Alert.alert('सफलता', 'रिमाइंडर सेटिंग्स सफलतापूर्वक अपडेट हुई।');
         router.back();
       }
     } catch (error) {
       console.error('Error updating preferences:', error);
-      Alert.alert('Error', 'Failed to update settings. Please try again.');
+      Alert.alert('त्रुटि', 'सेटिंग्स अपडेट करने में विफल। कृपया पुनः प्रयास करें।');
     } finally {
       setLoading(false);
     }
@@ -76,14 +76,14 @@ export default function ReminderSettings() {
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="#2C1810" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Reminder Settings</Text>
+        <Text style={styles.headerTitle}>रिमाइंडर सेटिंग्स</Text>
         <View style={styles.backButton} />
       </View>
       
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Reminder Time</Text>
+            <Text style={styles.sectionTitle}>रिमाइंडर समय</Text>
             <View style={styles.timeGrid}>
               {timeOptions.map((time) => (
                 <TouchableOpacity
@@ -114,14 +114,14 @@ export default function ReminderSettings() {
           </View>
           
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Audio Settings</Text>
+            <Text style={styles.sectionTitle}>ऑडियो सेटिंग्स</Text>
             <TouchableOpacity 
               style={styles.toggleRow}
               onPress={() => setSoundscapeOn(!soundscapeOn)}
             >
               <View style={styles.toggleInfo}>
-                <Text style={styles.toggleTitle}>Temple soundscape</Text>
-                <Text style={styles.toggleSubtitle}>Play gentle sounds during ritual</Text>
+                <Text style={styles.toggleTitle}>मंदिर की ध्वनि</Text>
+                <Text style={styles.toggleSubtitle}>अनुष्ठान के दौरान मधुर ध्वनि चलाएं</Text>
               </View>
               <View style={[
                 styles.toggle,
@@ -140,7 +140,7 @@ export default function ReminderSettings() {
             onPress={handleSave}
             disabled={loading}
           >
-            <Text style={styles.buttonText}>Save Changes</Text>
+            <Text style={styles.buttonText}>परिवर्तन सहेजें</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

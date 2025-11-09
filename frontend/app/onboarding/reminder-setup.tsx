@@ -109,7 +109,7 @@ export default function ReminderSetup() {
       router.replace('/home');
     } catch (error) {
       console.error('Error saving preferences:', error);
-      Alert.alert('Error', 'Failed to save preferences. Please try again.');
+      Alert.alert('त्रुटि', 'प्राथमिकताएं सहेजने में विफल। कृपया पुनः प्रयास करें।');
     } finally {
       setLoading(false);
     }
@@ -120,12 +120,12 @@ export default function ReminderSetup() {
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <Ionicons name="time-outline" size={48} color="#FF6B35" style={styles.icon} />
-          
-          <Text style={styles.title}>Set Your Morning Reminder</Text>
-          <Text style={styles.subtitle}>What time would you like to begin your morning darshan every day?</Text>
+
+          <Text style={styles.title}>अपनी सुबह का रिमाइंडर सेट करें</Text>
+          <Text style={styles.subtitle}>आप हर दिन अपना सुबह का दर्शन किस समय शुरू करना चाहेंगे?</Text>
           
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Reminder Time</Text>
+            <Text style={styles.sectionTitle}>रिमाइंडर समय</Text>
             <View style={styles.timeGrid}>
               {timeOptions.map((time) => (
                 <TouchableOpacity
@@ -138,7 +138,7 @@ export default function ReminderSetup() {
                 >
                   {time === recommendedTime && (
                     <View style={styles.recommendedBadge}>
-                      <Text style={styles.recommendedText}>Recommended</Text>
+                      <Text style={styles.recommendedText}>सुझाया गया</Text>
                     </View>
                   )}
                   <Text style={[
@@ -147,7 +147,7 @@ export default function ReminderSetup() {
                   ]}>{time}</Text>
                   {time === recommendedTime && (
                     <Text style={styles.alarmCaption}>
-                      Based on alarm at {alarmTime}
+                      {alarmTime} पर अलार्म के आधार पर
                     </Text>
                   )}
                 </TouchableOpacity>
@@ -159,7 +159,7 @@ export default function ReminderSetup() {
               <Ionicons name="bulb-outline" size={20} color="#FF6B35" />
               <View style={styles.nudgeTextContainer}>
                 <Text style={styles.nudgeText}>
-                  Begin your day on a positive note by doing your morning darshan within an hour of waking up.
+                  जागने के एक घंटे के भीतर सुबह का दर्शन करके अपने दिन की सकारात्मक शुरुआत करें।
                 </Text>
               </View>
             </View>
@@ -171,8 +171,8 @@ export default function ReminderSetup() {
               onPress={() => setSoundscapeOn(!soundscapeOn)}
             >
               <View style={styles.toggleInfo}>
-                <Text style={styles.toggleTitle}>Play temple soundscape at start</Text>
-                <Text style={styles.toggleSubtitle}>Gentle bells and ambient sounds</Text>
+                <Text style={styles.toggleTitle}>शुरुआत में मंदिर की ध्वनि चलाएं</Text>
+                <Text style={styles.toggleSubtitle}>मधुर घंटियां और शांत ध्वनि</Text>
               </View>
               <View style={[
                 styles.toggle,
@@ -194,7 +194,7 @@ export default function ReminderSetup() {
             {loading ? (
               <ActivityIndicator color="#FFFFFF" />
             ) : (
-              <Text style={styles.buttonText}>Save & Continue</Text>
+              <Text style={styles.buttonText}>सहेजें और जारी रखें</Text>
             )}
           </TouchableOpacity>
         </View>

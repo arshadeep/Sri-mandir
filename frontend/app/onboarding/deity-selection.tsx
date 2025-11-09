@@ -19,7 +19,7 @@ export default function DeitySelection() {
 
   const handleContinue = () => {
     if (selectedDeities.length === 0) {
-      Alert.alert('Selection Required', 'Please select at least one deity.');
+      Alert.alert('चयन आवश्यक है', 'कृपया कम से कम एक देवता चुनें।');
       return;
     }
     router.push({
@@ -36,9 +36,9 @@ export default function DeitySelection() {
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <Ionicons name="flower-outline" size={48} color="#FF6B35" style={styles.icon} />
-          
-          <Text style={styles.title}>Choose Your Favorite Gods</Text>
-          <Text style={styles.subtitle}>Select one or more deities for your daily darshan</Text>
+
+          <Text style={styles.title}>अपने पसंदीदा देवता चुनें</Text>
+          <Text style={styles.subtitle}>अपने दैनिक दर्शन के लिए एक या अधिक देवता चुनें</Text>
           
           <View style={styles.section}>
             {DEITIES.map((deity) => (
@@ -68,7 +68,7 @@ export default function DeitySelection() {
           
           {selectedDeities.length > 0 && (
             <Text style={styles.helperText}>
-              {selectedDeities.length} {selectedDeities.length === 1 ? 'deity' : 'deities'} selected - Daily rotation will show one deity each day
+              {selectedDeities.length} {selectedDeities.length === 1 ? 'देवता' : 'देवता'} चुने गए - प्रतिदिन एक देवता के दर्शन होंगे
             </Text>
           )}
           
@@ -80,7 +80,7 @@ export default function DeitySelection() {
             onPress={handleContinue}
             disabled={selectedDeities.length === 0}
           >
-            <Text style={styles.buttonText}>Continue</Text>
+            <Text style={styles.buttonText}>जारी रखें</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

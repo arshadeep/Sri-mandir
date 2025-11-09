@@ -11,7 +11,7 @@ export default function Welcome() {
 
   const handleBegin = () => {
     if (!name.trim()) {
-      Alert.alert('Name Required', 'Please enter your name to continue.');
+      Alert.alert('नाम आवश्यक है', 'कृपया जारी रखने के लिए अपना नाम दर्ज करें।');
       return;
     }
     
@@ -43,14 +43,14 @@ export default function Welcome() {
               <Ionicons name="flower" size={60} color="#FF6B35" />
             </View>
             
-            <Text style={styles.title}>Sri Mandir</Text>
-            <Text style={styles.subtitle}>A peaceful start to your mornings awaits</Text>
-            
+            <Text style={styles.title}>श्री मंदिर</Text>
+            <Text style={styles.subtitle}>आपकी सुबह की शुरुआत शांतिपूर्ण हो</Text>
+
             <View style={styles.inputSection}>
-              <Text style={styles.inputLabel}>Enter Your Name</Text>
+              <Text style={styles.inputLabel}>अपना नाम दर्ज करें</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Your name"
+                placeholder="आपका नाम"
                 placeholderTextColor="#D4B5A0"
                 value={name}
                 onChangeText={setName}
@@ -61,11 +61,11 @@ export default function Welcome() {
             
             <View style={styles.spacer} />
             
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.button}
               onPress={handleBegin}
             >
-              <Text style={styles.buttonText}>Begin Your Journey</Text>
+              <Text style={styles.buttonText}>अपनी यात्रा शुरू करें</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

@@ -9,52 +9,52 @@ import { DEITIES } from '../../utils/constants';
 const WISDOM_STORIES: { [key: string]: Array<{ story: string; takeaway: string }> } = {
   ganesha: [
     {
-      story: 'When Ganesha wrote the Mahabharata for Vyasa, he never stopped writing, showing complete dedication. His focus never wavered, demonstrating that obstacles dissolve when we commit fully.',
-      takeaway: 'Today, give your full attention to one important task. Let focus be your strength.',
+      story: 'जब गणेश ने व्यास के लिए महाभारत लिखा, तो उन्होंने कभी रुकना नहीं जाना, पूर्ण समर्पण दिखाया। उनका ध्यान कभी नहीं भटका, यह साबित करते हुए कि जब हम पूरी तरह प्रतिबद्ध होते हैं तो बाधाएं घुल जाती हैं।',
+      takeaway: 'आज, एक महत्वपूर्ण कार्य पर अपना पूरा ध्यान दें। ध्यान को अपनी ताकत बनाएं।',
     },
     {
-      story: 'Ganesha chose wisdom over worldly riches when tested. He valued knowledge and inner growth above all material gains.',
-      takeaway: 'Today, choose growth over comfort. Learn something new.',
+      story: 'गणेश ने परीक्षा के समय सांसारिक धन के बजाय ज्ञान को चुना। उन्होंने सभी भौतिक लाभों से ऊपर ज्ञान और आंतरिक विकास को महत्व दिया।',
+      takeaway: 'आज, आराम के बजाय विकास चुनें। कुछ नया सीखें।',
     },
   ],
   hanuman: [
     {
-      story: 'When Hanuman reached Lanka, he kept his mind steady and heart humble, trusting purpose over fear. His devotion gave him courage beyond measure.',
-      takeaway: 'Today, act with courage and humility. Trust in your purpose.',
+      story: 'जब हनुमान लंका पहुंचे, तो उन्होंने अपने मन को स्थिर और हृदय को विनम्र रखा, भय से अधिक उद्देश्य पर विश्वास किया। उनकी भक्ति ने उन्हें अथाह साहस दिया।',
+      takeaway: 'आज, साहस और विनम्रता के साथ कार्य करें। अपने उद्देश्य पर विश्वास करें।',
     },
     {
-      story: 'Hanuman carried an entire mountain when he could not find the herb. His determination to serve knew no limits.',
-      takeaway: 'Today, go the extra mile for someone you care about.',
+      story: 'हनुमान ने पूरा पहाड़ उठा लिया जब वे जड़ी-बूटी नहीं ढूंढ पाए। सेवा करने का उनका संकल्प असीम था।',
+      takeaway: 'आज, किसी ऐसे व्यक्ति के लिए अतिरिक्त प्रयास करें जिसकी आप परवाह करते हैं।',
     },
   ],
   shiva: [
     {
-      story: 'When the world was consumed by poison, Shiva held it in his throat, neither swallowing nor spitting it out. He transformed poison into power through acceptance.',
-      takeaway: 'Today, accept challenges with grace. Transform difficulty into strength.',
+      story: 'जब विष ने संसार को निगलने की कोशिश की, तो शिव ने उसे अपने गले में रोक लिया, न निगला न बाहर फेंका। उन्होंने स्वीकृति के माध्यम से विष को शक्ति में बदल दिया।',
+      takeaway: 'आज, चुनौतियों को अनुग्रह के साथ स्वीकार करें। कठिनाई को शक्ति में बदलें।',
     },
     {
-      story: 'Shiva dances in stillness, showing that true power lies in calmness. In his meditation, he finds infinite energy.',
-      takeaway: 'Today, find a moment of stillness. Let calm be your power.',
+      story: 'शिव स्थिरता में नृत्य करते हैं, यह दिखाते हुए कि सच्ची शक्ति शांति में है। अपने ध्यान में, वे अनंत ऊर्जा पाते हैं।',
+      takeaway: 'आज, स्थिरता का एक पल खोजें। शांति को अपनी शक्ति बनाएं।',
     },
   ],
   durga: [
     {
-      story: 'When darkness threatened the world, Durga rose with fierce compassion. She fought not from anger, but from love for all beings.',
-      takeaway: 'Today, stand up for what is right. Let compassion guide your strength.',
+      story: 'जब अंधकार ने संसार को धमकी दी, तो दुर्गा उग्र करुणा के साथ उठीं। उन्होंने क्रोध से नहीं, बल्कि सभी प्राणियों के प्रेम से युद्ध किया।',
+      takeaway: 'आज, सही के लिए खड़े हों। करुणा को अपनी ताकत का मार्गदर्शक बनाएं।',
     },
     {
-      story: 'Durga rides the lion, showing that we must master our own inner nature before we can protect others.',
-      takeaway: 'Today, master your emotions. Be both strong and composed.',
+      story: 'दुर्गा सिंह की सवारी करती हैं, यह दिखाती हुई कि दूसरों की रक्षा करने से पहले हमें अपनी आंतरिक प्रकृति पर महारत हासिल करनी होगी।',
+      takeaway: 'आज, अपनी भावनाओं पर नियंत्रण पाएं। मजबूत और संयमी दोनों बनें।',
     },
   ],
   krishna: [
     {
-      story: 'Krishna taught Arjuna that duty done with a joyful heart brings liberation. Work becomes play when done with love.',
-      takeaway: 'Today, bring joy to your responsibilities. Find delight in what you do.',
+      story: 'कृष्ण ने अर्जुन को सिखाया कि आनंदित हृदय से किया गया कर्तव्य मुक्ति लाता है। प्रेम से किया गया कार्य खेल बन जाता है।',
+      takeaway: 'आज, अपनी जिम्मेदारियों में आनंद लाएं। जो करते हैं उसमें प्रसन्नता खोजें।',
     },
     {
-      story: 'Krishna danced in the storm, showing that true wisdom is knowing when to be serious and when to celebrate life.',
-      takeaway: 'Today, find a reason to celebrate. Balance work with joy.',
+      story: 'कृष्ण ने तूफान में नृत्य किया, यह दिखाते हुए कि सच्चा ज्ञान यह जानना है कि कब गंभीर होना है और कब जीवन का उत्सव मनाना है।',
+      takeaway: 'आज, जश्न मनाने का कारण खोजें। काम और खुशी में संतुलन बनाएं।',
     },
   ],
 };
@@ -79,8 +79,8 @@ export default function Wisdom() {
     } catch (error) {
       console.error('Error loading wisdom:', error);
       setWisdom({
-        story: 'Remember that every challenge is an opportunity to grow stronger and wiser.',
-        takeaway: 'Today, embrace challenges as gifts for your growth.',
+        story: 'याद रखें कि हर चुनौती मजबूत और बुद्धिमान बनने का अवसर है।',
+        takeaway: 'आज, चुनौतियों को अपने विकास के उपहार के रूप में अपनाएं।',
       });
     } finally {
       setLoading(false);
@@ -112,18 +112,18 @@ export default function Wisdom() {
             <Ionicons name="book" size={48} color="#FF6B35" />
           </View>
           
-          <Text style={styles.title}>Today's Wisdom from {deity.name}</Text>
+          <Text style={styles.title}>{deity.name} से आज का ज्ञान</Text>
           <Text style={styles.titleHindi}>({deity.nameHindi})</Text>
-          
+
           <View style={styles.storyCard}>
-            <Text style={styles.storyLabel}>Story</Text>
+            <Text style={styles.storyLabel}>कथा</Text>
             <Text style={styles.storyText}>{wisdom?.story}</Text>
           </View>
           
           <View style={styles.takeawayCard}>
             <Ionicons name="bulb" size={24} color="#FF6B35" style={styles.takeawayIcon} />
             <View style={styles.takeawayContent}>
-              <Text style={styles.takeawayLabel}>Today's Takeaway</Text>
+              <Text style={styles.takeawayLabel}>आज का संदेश</Text>
               <Text style={styles.takeawayText}>{wisdom?.takeaway}</Text>
             </View>
           </View>
@@ -132,7 +132,7 @@ export default function Wisdom() {
             style={styles.button}
             onPress={handleContinue}
           >
-            <Text style={styles.buttonText}>Continue</Text>
+            <Text style={styles.buttonText}>जारी रखें</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

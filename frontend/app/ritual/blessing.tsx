@@ -23,7 +23,7 @@ export default function Blessing() {
     } catch (error) {
       console.error('Error loading blessing:', error);
       setBlessing({
-        text_en: 'May divine grace guide and protect you throughout your day.',
+        text_en: 'दिव्य कृपा आपको दिन भर मार्गदर्शन और सुरक्षा प्रदान करे।',
         tone: 'calm'
       });
     } finally {
@@ -53,15 +53,15 @@ export default function Blessing() {
           <Ionicons name="sparkles" size={60} color="#FF6B35" />
         </View>
         
-        <Text style={styles.title}>Today's Blessing</Text>
-        <Text style={styles.subtitle}>Your blessing for today:</Text>
-        
+        <Text style={styles.title}>आज का आशीर्वाद</Text>
+        <Text style={styles.subtitle}>आज आपके लिए आशीर्वाद:</Text>
+
         <View style={styles.blessingCard}>
           <Text style={styles.blessingText}>"{blessing.text_en}"</Text>
         </View>
-        
+
         <Text style={styles.footerText}>
-          Carry this intention with you as you go through your day.
+          इस संकल्प को अपने साथ रखें जैसे आप अपने दिन में आगे बढ़ते हैं।
         </Text>
         
         <View style={styles.spacer} />
@@ -70,7 +70,7 @@ export default function Blessing() {
           style={styles.button}
           onPress={handleContinue}
         >
-          <Text style={styles.buttonText}>Continue</Text>
+          <Text style={styles.buttonText}>जारी रखें</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

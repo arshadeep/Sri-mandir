@@ -56,8 +56,8 @@ export default function Home() {
           {/* Header */}
           <View style={styles.header}>
             <View>
-              <Text style={styles.greeting}>Good Morning</Text>
-              <Text style={styles.userName}>{user?.name || 'Devotee'}</Text>
+              <Text style={styles.greeting}>सुप्रभात</Text>
+              <Text style={styles.userName}>{user?.name || 'भक्त'}</Text>
             </View>
           </View>
           
@@ -79,7 +79,7 @@ export default function Home() {
           <View style={styles.messageCard}>
             <Ionicons name="calendar-outline" size={20} color="#FF6B35" />
             <Text style={styles.messageText}>
-              Today is a day of devotion to {todaysDeity?.name} ({todaysDeity?.nameHindi})
+              आज {todaysDeity?.name} ({todaysDeity?.nameHindi}) की भक्ति का दिन है
             </Text>
           </View>
           
@@ -89,7 +89,7 @@ export default function Home() {
             onPress={() => router.push('/ritual/breathing')}
           >
             <Ionicons name="flower" size={24} color="#FFFFFF" style={styles.buttonIcon} />
-            <Text style={styles.primaryButtonText}>Begin Morning Darshan</Text>
+            <Text style={styles.primaryButtonText}>सुबह का दर्शन शुरू करें</Text>
           </TouchableOpacity>
           
           {/* Streak Info */}
@@ -97,13 +97,13 @@ export default function Home() {
             <View style={styles.infoCard}>
               <Ionicons name="flame" size={32} color="#FF6B35" />
               <Text style={styles.infoNumber}>{streak?.current_streak || 0}</Text>
-              <Text style={styles.infoLabel}>Day Streak</Text>
+              <Text style={styles.infoLabel}>दिन की लकीर</Text>
             </View>
             
             <View style={styles.infoCard}>
               <Ionicons name="time-outline" size={32} color="#FF6B35" />
               <Text style={styles.infoNumber}>{preferences?.reminder_time || '06:30'}</Text>
-              <Text style={styles.infoLabel}>Daily Reminder</Text>
+              <Text style={styles.infoLabel}>दैनिक रिमाइंडर</Text>
             </View>
           </View>
           
@@ -114,7 +114,7 @@ export default function Home() {
               onPress={() => router.push('/streaks')}
             >
               <Ionicons name="calendar" size={24} color="#FF6B35" />
-              <Text style={styles.actionText}>View Streaks</Text>
+              <Text style={styles.actionText}>लकीर देखें</Text>
             </TouchableOpacity>
           </View>
         </View>

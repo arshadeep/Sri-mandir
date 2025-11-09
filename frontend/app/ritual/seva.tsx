@@ -6,21 +6,21 @@ import { Ionicons } from '@expo/vector-icons';
 const SEVA_OPTIONS = [
   {
     id: 'cow',
-    title: 'Feed Cows',
+    title: 'गायों को खिलाएं',
     icon: '🐄',
-    description: 'Provide nutritious food for sacred cows',
+    description: 'पवित्र गायों के लिए पौष्टिक भोजन प्रदान करें',
   },
   {
     id: 'tree',
-    title: 'Plant a Tree',
+    title: 'पेड़ लगाएं',
     icon: '🌳',
-    description: 'Help create a greener tomorrow',
+    description: 'एक हरित कल बनाने में मदद करें',
   },
   {
     id: 'prasad',
-    title: 'Offer Prasad',
+    title: 'प्रसाद अर्पित करें',
     icon: '🙏',
-    description: 'Feed prasad to devotees at temples',
+    description: 'मंदिरों में भक्तों को प्रसाद खिलाएं',
   },
 ];
 
@@ -56,9 +56,9 @@ export default function Seva() {
         <View style={styles.confirmationOverlay}>
           <View style={styles.confirmationCard}>
             <Text style={styles.confirmationEmoji}>🙏</Text>
-            <Text style={styles.confirmationTitle}>Seva Complete</Text>
+            <Text style={styles.confirmationTitle}>सेवा पूर्ण</Text>
             <Text style={styles.confirmationMessage}>
-              Thank you for contributing to {sevaOption?.title}. Your devotion and generosity will help many.
+              {sevaOption?.title} में योगदान के लिए धन्यवाद। आपकी भक्ति और उदारता कई लोगों की मदद करेगी।
             </Text>
           </View>
         </View>
@@ -68,17 +68,17 @@ export default function Seva() {
           <Text style={styles.heartEmoji}>💛</Text>
         </View>
         
-        <Text style={styles.title}>Do Seva Today</Text>
+        <Text style={styles.title}>आज सेवा करें</Text>
         <Text style={styles.subtitle}>
-          Serving others is a form of devotion. (Optional)
+          दूसरों की सेवा करना भक्ति का एक रूप है। (वैकल्पिक)
         </Text>
-        
+
         <Text style={styles.questionText}>
-          Would you like to contribute today towards:
+          क्या आप आज इसमें योगदान करना चाहेंगे:
         </Text>
-        
+
         <View style={styles.amountSection}>
-          <Text style={styles.amountLabel}>Enter Amount (₹)</Text>
+          <Text style={styles.amountLabel}>राशि दर्ज करें (₹)</Text>
           <TextInput
             style={styles.amountInput}
             value={customAmount}
@@ -128,14 +128,14 @@ export default function Seva() {
             disabled={!selectedSeva}
           >
             <Ionicons name="heart" size={20} color="#FFFFFF" style={styles.buttonIcon} />
-            <Text style={styles.donateButtonText}>Contribute {amount}</Text>
+            <Text style={styles.donateButtonText}>योगदान दें {amount}</Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
             style={styles.skipButton}
             onPress={handleSkip}
           >
-            <Text style={styles.skipButtonText}>Not Today</Text>
+            <Text style={styles.skipButtonText}>आज नहीं</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

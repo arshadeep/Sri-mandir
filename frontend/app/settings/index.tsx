@@ -10,14 +10,14 @@ export default function Settings() {
 
   const settingsOptions = [
     {
-      title: 'Reminder Settings',
-      subtitle: `Daily at ${preferences?.reminder_time || '06:30'}`,
+      title: 'रिमाइंडर सेटिंग्स',
+      subtitle: `प्रतिदिन ${preferences?.reminder_time || '06:30'} पर`,
       icon: 'notifications-outline',
       onPress: () => router.push('/settings/reminder'),
     },
     {
-      title: 'Deity Preferences',
-      subtitle: 'Manage your deity selections',
+      title: 'देवता प्राथमिकताएं',
+      subtitle: 'अपने देवता चयन प्रबंधित करें',
       icon: 'flower-outline',
       onPress: () => router.push('/settings/deity-preferences'),
     },
@@ -29,7 +29,7 @@ export default function Settings() {
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="#2C1810" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Settings</Text>
+        <Text style={styles.headerTitle}>सेटिंग्स</Text>
         <View style={styles.backButton} />
       </View>
       

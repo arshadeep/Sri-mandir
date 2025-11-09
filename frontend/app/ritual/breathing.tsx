@@ -25,11 +25,11 @@ interface DiyaFlame {
 }
 
 const DEVOTIONAL_MESSAGES = [
-  "Close your eyes, remember your chosen deity",
-  "Feel the divine presence within you",
-  "Let peace fill your heart with each breath",
-  "Connect with the sacred energy around you",
-  "Your devotion brings you closer to the divine",
+  "अपनी आंखें बंद करें, अपने इष्ट देव को याद करें",
+  "अपने भीतर दिव्य उपस्थिति महसूस करें",
+  "हर सांस के साथ अपने हृदय को शांति से भरें",
+  "अपने चारों ओर पवित्र ऊर्जा से जुड़ें",
+  "आपकी भक्ति आपको परमात्मा के करीब लाती है",
 ];
 
 export default function Breathing() {
@@ -309,9 +309,9 @@ export default function Breathing() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Breathe & Chant "ॐ"</Text>
+        <Text style={styles.title}>सांस लें और "ॐ" का जाप करें</Text>
         <Text style={styles.subtitle}>
-          Take slow, deep breaths. On each exhale, softly chant "ॐ".
+          धीमी, गहरी सांस लें। हर सांस छोड़ते समय, धीरे से "ॐ" का जाप करें।
         </Text>
 
         <View style={styles.breathingContainer}>
@@ -401,7 +401,7 @@ export default function Breathing() {
           </Animated.View>
 
           <Text style={styles.phaseText}>
-            {phase === 'inhale' ? 'Inhale...' : 'Exhale... "ॐ"'}
+            {phase === 'inhale' ? 'सांस अंदर लें...' : 'सांस बाहर छोड़ें... "ॐ"'}
           </Text>
         </View>
 
@@ -461,7 +461,7 @@ export default function Breathing() {
             ]}
           />
           <Text style={[styles.buttonText, isReady && styles.buttonTextReady]}>
-            {todaysDeity.name} Darshan →
+            {todaysDeity.name} दर्शन →
           </Text>
         </TouchableOpacity>
       </View>

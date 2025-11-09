@@ -23,9 +23,9 @@ export default function Prepare() {
           <Ionicons name="leaf" size={80} color="#FF6B35" />
         </View>
         
-        <Text style={styles.title}>Prepare for Darshan</Text>
+        <Text style={styles.title}>दर्शन की तैयारी करें</Text>
         <Text style={styles.subtitle}>
-          Take a moment to settle in. When you're ready, we'll begin your morning darshan with calm and devotion.
+          एक क्षण रुकें और तैयार हो जाएं। जब आप तैयार हों, तो हम शांति और भक्ति के साथ आपका सुबह का दर्शन शुरू करेंगे।
         </Text>
         
         <View style={styles.spacer} />
@@ -37,9 +37,9 @@ export default function Prepare() {
           <View style={styles.toggleInfo}>
             <Ionicons name="musical-notes" size={24} color="#FF6B35" />
             <View style={styles.toggleTextContainer}>
-              <Text style={styles.toggleTitle}>Temple Soundscape</Text>
+              <Text style={styles.toggleTitle}>मंदिर की ध्वनि</Text>
               <Text style={styles.toggleSubtitle}>
-                {soundscapeOn ? 'Enabled' : 'Disabled'}
+                {soundscapeOn ? 'चालू है' : 'बंद है'}
               </Text>
             </View>
           </View>
@@ -58,7 +58,7 @@ export default function Prepare() {
           style={styles.button}
           onPress={handleBegin}
         >
-          <Text style={styles.buttonText}>Begin</Text>
+          <Text style={styles.buttonText}>शुरू करें</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

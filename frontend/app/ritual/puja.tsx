@@ -34,9 +34,9 @@ export default function Puja() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Puja Offerings</Text>
+        <Text style={styles.title}>पूजा अर्पण</Text>
         <Text style={styles.subtitle}>
-          Offer a flower, light a diya, and ring the bell before darshan.
+          दर्शन से पहले एक फूल अर्पित करें, दीपक जलाएं और घंटी बजाएं।
         </Text>
         
         <View style={styles.offeringsContainer}>
@@ -54,7 +54,7 @@ export default function Puja() {
               size={64} 
               color={flowerOffered ? '#FF1493' : '#FFB6C1'} 
             />
-            <Text style={styles.offeringText}>Offer Flower</Text>
+            <Text style={styles.offeringText}>फूल अर्पित करें</Text>
             {flowerOffered && (
               <View style={styles.checkMark}>
                 <Ionicons name="checkmark-circle" size={32} color="#4CAF50" />
@@ -76,7 +76,7 @@ export default function Puja() {
               size={64} 
               color={diyaLit ? '#FF6B35' : '#FFD4B8'} 
             />
-            <Text style={styles.offeringText}>Light Diya</Text>
+            <Text style={styles.offeringText}>दीया जलाएं</Text>
             {diyaLit && (
               <View style={styles.checkMark}>
                 <Ionicons name="checkmark-circle" size={32} color="#4CAF50" />
@@ -98,7 +98,7 @@ export default function Puja() {
               size={64} 
               color={bellRung ? '#FFD700' : '#FFE4B5'} 
             />
-            <Text style={styles.offeringText}>Ring Bell</Text>
+            <Text style={styles.offeringText}>घंटी बजाएं</Text>
             {bellRung && (
               <View style={styles.checkMark}>
                 <Ionicons name="checkmark-circle" size={32} color="#4CAF50" />
@@ -118,7 +118,7 @@ export default function Puja() {
           disabled={!canContinue}
         >
           <Text style={styles.buttonText}>
-            {canContinue ? 'Continue to Darshan' : 'Complete All Offerings'}
+            {canContinue ? 'दर्शन के लिए जारी रखें' : 'सभी अर्पण पूरे करें'}
           </Text>
         </TouchableOpacity>
       </View>
