@@ -107,9 +107,7 @@ export default function ReminderSettings() {
               <Ionicons name="bulb-outline" size={20} color="#FF6B35" />
               <View style={styles.nudgeTextContainer}>
                 <Text style={styles.nudgeText}>
-                  <Text style={styles.nudgeBold}>Tip: </Text>
-                  We recommend setting your darshan within one hour of waking up for the best spiritual experience.{' '}
-                  <Text style={styles.nudgeHighlight}>Your reminder is set for {reminderTime}</Text>
+                  Begin your day on a positive note by doing your morning darshan within the first hour of waking up.
                 </Text>
               </View>
             </View>

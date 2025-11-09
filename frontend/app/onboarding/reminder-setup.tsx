@@ -11,8 +11,8 @@ export default function ReminderSetup() {
   const router = useRouter();
   const params = useLocalSearchParams();
   const { setUser, setPreferences, setStreak, setHasCompletedOnboarding } = useUserStore();
-  
-  const [reminderTime, setReminderTime] = useState('06:30');
+
+  const [reminderTime, setReminderTime] = useState('07:30');
   const [soundscapeOn, setSoundscapeOn] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -20,18 +20,22 @@ export default function ReminderSetup() {
     '05:00', '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00'
   ];
 
+  // Recommended time based on alarm at 6:30 AM (1 hour later)
+  const recommendedTime = '07:30';
+  const alarmTime = '6:30 AM';
+
   const scheduleNotification = async (time: string) => {
     // Only schedule notifications on native platforms
     if (Platform.OS === 'web') {
       console.log('Notification scheduling not available on web');
       return;
     }
-    
+
     try {
       const [hours, minutes] = time.split(':').map(Number);
-      
+
       await Notifications.cancelAllScheduledNotificationsAsync();
-      
+
       await Notifications.scheduleNotificationAsync({
         content: {
           title: 'Time for Morning Darshan',
@@ -44,7 +48,7 @@ export default function ReminderSetup() {
           repeats: true,
         },
       });
-      
+
       console.log('Notification scheduled for', time);
     } catch (error) {
       console.error('Error scheduling notification:', error);
@@ -132,10 +136,20 @@ export default function ReminderSetup() {
                   ]}
                   onPress={() => setReminderTime(time)}
                 >
+                  {time === recommendedTime && (
+                    <View style={styles.recommendedBadge}>
+                      <Text style={styles.recommendedText}>Recommended</Text>
+                    </View>
+                  )}
                   <Text style={[
                     styles.timeText,
                     reminderTime === time && styles.timeTextSelected
                   ]}>{time}</Text>
+                  {time === recommendedTime && (
+                    <Text style={styles.alarmCaption}>
+                      Based on alarm at {alarmTime}
+                    </Text>
+                  )}
                 </TouchableOpacity>
               ))}
             </View>
@@ -145,9 +159,7 @@ export default function ReminderSetup() {
               <Ionicons name="bulb-outline" size={20} color="#FF6B35" />
               <View style={styles.nudgeTextContainer}>
                 <Text style={styles.nudgeText}>
-                  <Text style={styles.nudgeBold}>Tip: </Text>
-                  We recommend setting your darshan within one hour of waking up for the best spiritual experience.{' '}
-                  <Text style={styles.nudgeHighlight}>Your reminder is set for {reminderTime}</Text>
+                  Begin your day on a positive note by doing your morning darshan within an hour of waking up.
                 </Text>
               </View>
             </View>
@@ -249,6 +261,28 @@ const styles = StyleSheet.create({
     borderColor: '#FF6B35',
     backgroundColor: '#FFF3ED',
   },
+  recommendedBadge: {
+    position: 'absolute',
+    top: -8,
+    backgroundColor: '#4CAF50',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 8,
+    zIndex: 1,
+  },
+  recommendedText: {
+    fontSize: 9,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textTransform: 'uppercase',
+  },
+  alarmCaption: {
+    fontSize: 8,
+    color: '#8B6F47',
+    marginTop: 4,
+    textAlign: 'center',
+    lineHeight: 10,
+  },
   timeText: {
     fontSize: 16,
     fontWeight: '600',
@@ -283,6 +317,11 @@ const styles = StyleSheet.create({
   nudgeHighlight: {
     fontWeight: '600',
     color: '#FF6B35',
+  },
+  syncLink: {
+    fontWeight: '700',
+    color: '#FF6B35',
+    textDecorationLine: 'underline',
   },
   toggleRow: {
     flexDirection: 'row',
