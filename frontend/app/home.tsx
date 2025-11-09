@@ -89,7 +89,7 @@ export default function Home() {
             onPress={() => router.push('/ritual/breathing')}
           >
             <Ionicons name="flower" size={24} color="#FFFFFF" style={styles.buttonIcon} />
-            <Text style={styles.primaryButtonText}>सुबह का दर्शन शुरू करें</Text>
+            <Text style={styles.primaryButtonText}>सुबह का ध्यान शुरू करें</Text>
           </TouchableOpacity>
           
           {/* Streak Info */}
