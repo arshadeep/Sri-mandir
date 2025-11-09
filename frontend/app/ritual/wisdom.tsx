@@ -112,7 +112,7 @@ export default function Wisdom() {
             <Ionicons name="book" size={48} color="#FF6B35" />
           </View>
           
-          <Text style={styles.title}>{deity.name} से आज का ज्ञान</Text>
+          <Text style={styles.title}>आज का ज्ञान</Text>
           <Text style={styles.titleHindi}>({deity.nameHindi})</Text>
 
           <View style={styles.storyCard}>

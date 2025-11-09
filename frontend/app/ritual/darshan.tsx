@@ -373,7 +373,7 @@ export default function Darshan() {
             ]}
           />
           <Text style={[styles.buttonText, isReady && styles.buttonTextReady]}>
-            {isReady ? 'आज का ज्ञान →' : 'आशीर्वाद प्राप्त कर रहे हैं...'}
+            {isReady ? 'आज का ज्ञान →' : 'आशीर्वाद प्राप्त करें'}
           </Text>
         </TouchableOpacity>
       </View>

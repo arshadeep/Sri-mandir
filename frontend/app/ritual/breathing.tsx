@@ -461,7 +461,7 @@ export default function Breathing() {
             ]}
           />
           <Text style={[styles.buttonText, isReady && styles.buttonTextReady]}>
-            {todaysDeity.name} दर्शन →
+            {todaysDeity.nameHindi} दर्शन →
           </Text>
         </TouchableOpacity>
       </View>

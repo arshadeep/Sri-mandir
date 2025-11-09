@@ -118,7 +118,7 @@ export default function Puja() {
           disabled={!canContinue}
         >
           <Text style={styles.buttonText}>
-            {canContinue ? 'दर्शन के लिए जारी रखें' : 'सभी अर्पण पूरे करें'}
+            {canContinue ? 'आशीर्वाद प्राप्त करें' : 'सभी अर्पण पूरे करें'}
           </Text>
         </TouchableOpacity>
       </View>
